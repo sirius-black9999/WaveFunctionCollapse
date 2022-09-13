@@ -1,0 +1,22 @@
+namespace WaveFunction.MagicSystemSketch
+{
+    public class Rune
+    {
+        public Rune(Gesture gest)
+        {
+            _aspects = gest.Aspects;
+        }
+
+        private readonly Dictionary<Aspect, double> _aspects;
+
+        public double PushForce(Element element)
+        {
+            if (_aspects.ContainsKey(element.Positive()))
+                return _aspects[element.Positive()];
+
+            if (_aspects.ContainsKey(element.Negative()))
+                return -_aspects[element.Negative()];
+            return 0;
+        }
+    }
+}

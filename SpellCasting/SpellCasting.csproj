@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="GdkSharp">
+        <HintPath>..\..\..\.nuget\packages\gdksharp\3.24.24.38\lib\net6.0\GdkSharp.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CairoSharp" Version="3.24.24.38" />
+      <PackageReference Include="GtkSharp" Version="3.24.24.38" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WaveFunction\WaveFunction.csproj" />
+    </ItemGroup>
+
+</Project>
