@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using WaveFunction;
 using WaveFunction.WaveFunc;
 
 namespace WaveFunctionTest.WaveFunction;
@@ -99,10 +98,10 @@ public class QuadTreeTest
         //Arrange
         var tree = QuadNode.MakeFull(static () => QuadNode.MakeFull());
         //Act
-        var tl = tree[Corner.TopLeft][Corner.TopRight];
-        var tr = tree[Corner.TopRight][Corner.BotLeft];
-        var bl = tree[Corner.BotLeft][Corner.TopLeft];
-        var br = tree[Corner.BotRight][Corner.BotRight];
+        var tl = tree[Corner.TopLeft]?[Corner.TopRight];
+        var tr = tree[Corner.TopRight]?[Corner.BotLeft];
+        var bl = tree[Corner.BotLeft]?[Corner.TopLeft];
+        var br = tree[Corner.BotRight]?[Corner.BotRight];
         //Assert
         Assert.That(tl, Is.InstanceOf<QuadNode>());
         Assert.That(tr, Is.InstanceOf<QuadNode>());
@@ -114,12 +113,12 @@ public class QuadTreeTest
     public void Recurrent_Init_Function_Only_Acts_Once()
     {
         //Arrange
-        var tree = QuadNode.MakeFull(static () => new QuadNode().Fill(() => new QuadNode()));
+        var tree = QuadNode.MakeFull(static () => new QuadNode().Fill(static () => new QuadNode()));
         //Act
-        var tl = tree[Corner.TopLeft][Corner.TopRight][Corner.TopLeft];
-        var tr = tree[Corner.TopRight][Corner.BotLeft][Corner.TopLeft];
-        var bl = tree[Corner.BotLeft][Corner.TopLeft][Corner.TopLeft];
-        var br = tree[Corner.BotRight][Corner.BotRight][Corner.TopLeft];
+        var tl = tree[Corner.TopLeft]?[Corner.TopRight]?[Corner.TopLeft];
+        var tr = tree[Corner.TopRight]?[Corner.BotLeft]?[Corner.TopLeft];
+        var bl = tree[Corner.BotLeft]?[Corner.TopLeft]?[Corner.TopLeft];
+        var br = tree[Corner.BotRight]?[Corner.BotRight]?[Corner.TopLeft];
         //Assert
         Assert.That(tl, Is.Null);
         Assert.That(tr, Is.Null);

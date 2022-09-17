@@ -10,13 +10,13 @@ namespace WaveFunction.WaveFunc
 
     public class QuadNode
     {
-        public QuadNode this[Corner c]
+        public QuadNode? this[Corner c]
         {
-            get => Nodes.ContainsKey(c) ? Nodes[c] : new QuadNode();
+            get => Nodes.ContainsKey(c) ? Nodes[c] : null;
             set => Nodes[c] = value;
         }
 
-        private Dictionary<Corner, QuadNode> Nodes { get; } = new Dictionary<Corner, QuadNode>();
+        private Dictionary<Corner, QuadNode?> Nodes { get; } = new Dictionary<Corner, QuadNode?>();
 
         public static QuadNode MakeFull() => MakeFull(static () => new QuadNode());
         public static QuadNode MakeFull(Func<QuadNode> fillWith) => new QuadNode().Fill(fillWith);

@@ -62,28 +62,33 @@ namespace SpellCasting
             {
                 if (_positions.Any())
                 {
-                    if (_currentRune.Any)
-                    {
-                        _casting.Inscribe(_currentRune.Resolve());
-                        _currentRune = new Gesture();
-                    }
-                    else if (_casting.Any)
-                    {
-                        var cast = _book.Cast(_casting);
-                        Console.WriteLine($"\nCasting {cast.Name}\n" +
-                                          $"Hardness: {cast.Hardness}\t Heat: {cast.Heat}\n" +
-                                          $"Entropy: {cast.Entropy}\t" +
-                                          $"Luminance: {cast.Luminance}\n" +
-                                          $"Manifold: {cast.Manifold}\t" +
-                                          $"Density: {cast.Density}\n" +
-                                          $"Risk: {cast.Risk}\t" +
-                                          $"Range: {cast.Range}\n" +
-                                          $"Stability: {cast.Stability}");
-                        _casting = new Incantation();
-                    }
+                    TryCast();
                 }
 
                 _positions.Clear();
+            }
+        }
+
+        private void TryCast()
+        {
+            if (_currentRune.Any)
+            {
+                _casting.Inscribe(_currentRune.Resolve());
+                _currentRune = new Gesture();
+            }
+            else if (_casting.Any)
+            {
+                var cast = _book.Cast(_casting);
+                Console.WriteLine($"\nCasting {cast.Name}\n" +
+                                  $"Hardness: {cast.Hardness}\t Heat: {cast.Heat}\n" +
+                                  $"Entropy: {cast.Entropy}\t" +
+                                  $"Luminance: {cast.Luminance}\n" +
+                                  $"Manifold: {cast.Manifold}\t" +
+                                  $"Density: {cast.Density}\n" +
+                                  $"Risk: {cast.Risk}\t" +
+                                  $"Range: {cast.Range}\n" +
+                                  $"Stability: {cast.Stability}");
+                _casting = new Incantation();
             }
         }
 

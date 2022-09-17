@@ -6,7 +6,6 @@ sources:
   #Files or Directories to be Excluded are mentioned in exclusions
   exclusions:
     - 'test'
-    - 'WaveFunctionTest'
     - 'generated'
     - 'mock'
     - 'thirdparty'
