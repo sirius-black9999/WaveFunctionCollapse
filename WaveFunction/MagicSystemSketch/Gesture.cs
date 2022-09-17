@@ -11,14 +11,8 @@ namespace WaveFunction.MagicSystemSketch
             return this;
         }
 
-        public bool Has(Aspect a)
-        {
-            return Aspects.ContainsKey(a);
-        }
-        public bool Has(Element a)
-        {
-            return Has(a.Positive()) || Has(a.Negative());
-        }
+        public bool Has(Aspect a) => Aspects.ContainsKey(a);
+        public bool Has(Element a) => Has(a.Positive()) || Has(a.Negative());
 
         public Rune Resolve() => new Rune(this);
 

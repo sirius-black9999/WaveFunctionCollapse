@@ -1,25 +1,16 @@
 using System;
-using System.Numerics;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
-using WaveFunction;
 using WaveFunction.ARPG.Battle;
-using WaveFunction.ARPG.Characters;
 using WaveFunction.Shared;
-using WaveFunctionTest.PropertyTesting.Tooling;
+using static WaveFunctionTest.PropertyTesting.Tooling.Generator<int>;
 
 namespace WaveFunctionTest.ARPG
 {
-    class SeqRng : IRng
-    {
-        public double Next() => i++;
-        private int i;
-    }
     public class BattleMapTest
     {
-        [DatapointSource] private NavDir[] allStat => Enum.GetValues<NavDir>();
+        [DatapointSource] private NavDir[] AllStat => Enum.GetValues<NavDir>();
 
-        [DatapointSource] private int[] Directions => Generator<int>.Make(3, randomizer => randomizer.Next(0, 256));
+        [DatapointSource] private int[] Directions => Make(3, static randomizer => randomizer.Next(0, 256));
 
         [Theory]
         public void Default_Passability_Is_False()
@@ -53,6 +44,7 @@ namespace WaveFunctionTest.ARPG
             Assert.That(result.X, Is.EqualTo(256));
             Assert.That(result.Y, Is.EqualTo(256));
         }
+
         [Test]
         public void BattleMap_Size_May_Be_Doubled()
         {
@@ -77,8 +69,8 @@ namespace WaveFunctionTest.ARPG
             Assert.That(result.Y, Is.EqualTo(0));
             Assert.That(result.Z, Is.EqualTo(0));
         }
-        
-        
+
+
         [Theory]
         public void Random_Will_Call_Randomize_65535_Times(int x, int y)
         {
@@ -90,10 +82,10 @@ namespace WaveFunctionTest.ARPG
             var result = b.GetCol(x, y);
             //Assert
             var expectedIndex = b.Size.IndexOf(x, y) * 3;
-            
+
             Assert.That(result.X, Is.EqualTo(expectedIndex));
-            Assert.That(result.Y, Is.EqualTo(expectedIndex+1));
-            Assert.That(result.Z, Is.EqualTo(expectedIndex+2));
+            Assert.That(result.Y, Is.EqualTo(expectedIndex + 1));
+            Assert.That(result.Z, Is.EqualTo(expectedIndex + 2));
         }
     }
 }

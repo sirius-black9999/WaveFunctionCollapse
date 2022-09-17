@@ -1,5 +1,4 @@
-using WaveFunction.ARPG.Characters;
-using WaveFunction.ARPG.Characters.Battle;
+using WaveFunction.ARPG.Chars;
 
 namespace WaveFunction.ARPG.Battle
 {
@@ -8,10 +7,10 @@ namespace WaveFunction.ARPG.Battle
         public static Dictionary<TurnPhase, Action<Encounter>> TurnOrder =>
             new Dictionary<TurnPhase, Action<Encounter>>()
             {
-                { TurnPhase.Action, (enc) => enc.CurrentPhase = TurnPhase.BonusAction },
-                { TurnPhase.BonusAction, (enc) => enc.CurrentPhase = TurnPhase.Movement },
+                { TurnPhase.Action, static (enc) => enc.CurrentPhase = TurnPhase.BonusAction },
+                { TurnPhase.BonusAction, static (enc) => enc.CurrentPhase = TurnPhase.Movement },
                 {
-                    TurnPhase.Movement, (enc) =>
+                    TurnPhase.Movement, static (enc) =>
                     {
                         enc.CurrentPlayerIndex++;
                         enc.CurrentPlayerIndex %= enc.Combatants;

@@ -1,5 +1,6 @@
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
     public class Pants : IEquipment
     {
@@ -14,9 +15,6 @@ namespace WaveFunction.ARPG.Characters.Items
     {
         public Pants Done => new Pants(this);
 
-        public PantsMaker WithStat(StatUtil.CharacterStats armorStat, double mod)
-        {
-            return this;
-        }
+        public PantsMaker WithStat(StatUtil.CharacterStats armorStat, double mod) => this;
     }
 }

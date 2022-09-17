@@ -6,7 +6,7 @@ using TilemapBuilder;
 // TilesetConverter.Run();
 // TilesetSplitter.Run();
 // TilesetMerger.Run();
-Stopwatch sw = new Stopwatch();
+var sw = new Stopwatch();
 sw.Start();
 TileMapTester.Run();
 sw.Stop();

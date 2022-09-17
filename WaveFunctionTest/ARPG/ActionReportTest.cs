@@ -1,37 +1,14 @@
 using System;
 using System.Numerics;
-using WaveFunction.ARPG.Characters;
+using WaveFunction.ARPG.Chars;
 
 namespace WaveFunctionTest.ARPG
 {
-    public enum ActionType
-    {
-        Attack,
-        Skill,
-        Spell,
-
-        Block,
-        Dodge,
-        Negate,
-
-        Wait,
-        UsePotion,
-        GearSwap
-    }
-
-    public enum ActionTarget
-    {
-        Self,
-        Ground,
-        Character,
-        Object
-    }
-
     public class ActionReportTest
     {
         public ActionType Chosen;
-        public ActionTarget target;
-        public Action<Character> PerformAction;
+        public ActionTarget Target;
+        public Action<Character> PerformAction = static c => { };
         public Vector2 RelativeTarget;
     }
 }

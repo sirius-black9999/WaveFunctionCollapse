@@ -1,7 +1,6 @@
-using System.Collections.Immutable;
-using WaveFunction.ARPG.Characters.Items;
+using WaveFunction.ARPG.Items;
 
-namespace WaveFunction.ARPG.Characters
+namespace WaveFunction.ARPG.Chars
 {
     public static class StatUtil
     {
@@ -15,8 +14,6 @@ namespace WaveFunction.ARPG.Characters
 
             StaminaMax = Stat.StaminaMax,
             StaminaCurrent = Stat.StaminaCurrent,
-            
-            
         };
 
         public enum DamageStats
@@ -24,16 +21,16 @@ namespace WaveFunction.ARPG.Characters
             SlashDamage = Stat.SlashDamage, // Solidum
             PierceDamage = Stat.PierceDamage, // Spatium
             StrikeDamage = Stat.StrikeDamage, // Inertiae
-        
+
             WindDamage = Stat.WindDamage, // Solidum, Inertiae
             FireDamage = Stat.FireDamage, // Febris
             LightningDamage = Stat.LightningDamage, // Ordinem
             IceDamage = Stat.IceDamage, // Ordinem, Febris
-        
+
             PsychicDamage = Stat.PsychicDamage, // Varias
             PoisonDamage = Stat.PoisonDamage, // Subsidium
             BleedDamage = Stat.BleedDamage, // Ordinem, Subsidium
-        
+
             RadiantDamage = Stat.RadiantDamage, // Lumines
             CrushDamage = Stat.CrushDamage, // Varias
             NecroticDamage = Stat.NecroticDamage, // Subsidium, Lumines
@@ -44,16 +41,16 @@ namespace WaveFunction.ARPG.Characters
             SlashDamage = Stat.SlashDamage, // Solidum
             PierceDamage = Stat.PierceDamage, // Spatium
             StrikeDamage = Stat.StrikeDamage, // Inertiae
-        
+
             WindDamage = Stat.WindDamage, // Solidum, Inertiae
             FireDamage = Stat.FireDamage, // Febris
             LightningDamage = Stat.LightningDamage, // Ordinem
             IceDamage = Stat.IceDamage, // Ordinem, Febris
-        
+
             PsychicDamage = Stat.PsychicDamage, // Varias
             PoisonDamage = Stat.PoisonDamage, // Subsidium
             BleedDamage = Stat.BleedDamage, // Ordinem, Subsidium
-        
+
             RadiantDamage = Stat.RadiantDamage, // Lumines
             CrushDamage = Stat.CrushDamage, // Varias
             NecroticDamage = Stat.NecroticDamage, // Subsidium, Lumines
@@ -103,20 +100,20 @@ namespace WaveFunction.ARPG.Characters
         SlashDamage, // Solidum
         PierceDamage, // Spatium
         StrikeDamage, // Inertiae
-        
+
         WindDamage, // Solidum, Inertiae
         FireDamage, // Febris
         LightningDamage, // Ordinem
         IceDamage, // Ordinem, Febris
-        
+
         PsychicDamage, // Varias
         PoisonDamage, // Subsidium
         BleedDamage, // Ordinem, Subsidium
-        
+
         RadiantDamage, // Lumines
         CrushDamage, // Varias
         NecroticDamage, // Subsidium, Lumines
-        
+
         StunChance,
         BlockPenetration,
         Accuracy,

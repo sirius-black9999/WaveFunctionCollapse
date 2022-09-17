@@ -1,5 +1,6 @@
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
     public class Chest : IEquipment
     {
@@ -14,9 +15,6 @@ namespace WaveFunction.ARPG.Characters.Items
     {
         public Chest Done => new Chest(this);
 
-        public ChestMaker WithStat(StatUtil.CharacterStats armorStat, double mod)
-        {
-            return this;
-        }
+        public ChestMaker WithStat(StatUtil.CharacterStats armorStat, double mod) => this;
     }
 }

@@ -1,5 +1,6 @@
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
     public class Jewel : IEquipment
     {
@@ -14,9 +15,6 @@ namespace WaveFunction.ARPG.Characters.Items
     {
         public Jewel Done => new Jewel(this);
 
-        public JewelMaker WithStat(StatUtil.CharacterStats armorStat, double mod)
-        {
-            return this;
-        }
+        public JewelMaker WithStat(StatUtil.CharacterStats armorStat, double mod) => this;
     }
 }

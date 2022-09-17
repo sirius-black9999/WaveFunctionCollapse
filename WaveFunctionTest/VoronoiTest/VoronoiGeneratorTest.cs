@@ -1,7 +1,6 @@
 using System;
 using System.Numerics;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using WaveFunction.MagicSystemSketch;
 using WaveFunction.Voronoi;
 using WaveFunctionTest.PropertyTesting.Tooling;
@@ -31,15 +30,15 @@ namespace WaveFunctionTest.VoronoiTest
             Assert.That(result, Is.EqualTo(2));
         }
 
-        [DatapointSource] private InfiniLine[] vecs = Generator<InfiniLine>.Make(3, rand =>
+        [DatapointSource] private InfiniLine[] _vecs = Generator<InfiniLine>.Make(3, static rand =>
         {
             var p1 = new Vector2(rand.NextFloat(-10, 10), rand.NextFloat(-10, 10));
             var p2 = new Vector2(rand.NextFloat(-10, 10), rand.NextFloat(-10, 10));
             return new InfiniLine(p1, p2);
         });
 
-        [DatapointSource] private Vector2[] Positions = Generator<Vector2>.Make(5,
-            rand => new Vector2(rand.NextFloat(-10, 10), rand.NextFloat(-10, 10)));
+        [DatapointSource] private Vector2[] _positions = Generator<Vector2>.Make(5,
+            static rand => new Vector2(rand.NextFloat(-10, 10), rand.NextFloat(-10, 10)));
 
         [Theory]
         public void InfiniLine_Can_Trim_To_LineSegment(InfiniLine tested, InfiniLine border1, InfiniLine border2)
@@ -53,7 +52,7 @@ namespace WaveFunctionTest.VoronoiTest
             var result = tested.TrimTo(border1, border2);
             //Assert
 
-            Assert.That(new[] { result.p1, result.p2 },
+            Assert.That(new[] { result.P1, result.P2 },
                 Is.EquivalentTo(new[] { tested.Intersect(border1), tested.Intersect(border2) }));
         }
     }

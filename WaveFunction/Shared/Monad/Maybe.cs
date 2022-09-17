@@ -1,27 +1,25 @@
-using System.Diagnostics;
-
 namespace WaveFunction.Shared.Monad
 {
-    public class Maybe<T_In, T_Out> : IMonad<T_In, T_Out>
+    public class Maybe<TIn, TOut> : IMonad<TIn, TOut>
     {
-        public Maybe(Func<T_In, Maybe<T_In, T_Out>, T_Out> transformation) : this(transformation, new List<Exception>())
+        public Maybe(Func<TIn, Maybe<TIn, TOut>, TOut> transformation) : this(transformation, new List<Exception>())
         {
         }
 
-        public Maybe(Func<T_In, Maybe<T_In, T_Out>, T_Out> transformation, List<Exception> errors)
+        public Maybe(Func<TIn, Maybe<TIn, TOut>, TOut> transformation, List<Exception> errors)
         {
             _trans = transformation;
             _result = default;
             Error = errors;
         }
 
-        public Maybe(Func<T_In, T_Out> transformation)
+        public Maybe(Func<TIn, TOut> transformation)
         {
             _trans = AddMonad(transformation);
             _result = default;
         }
 
-        public void Run(T_In i)
+        public void Run(TIn i)
         {
             try
             {
@@ -35,7 +33,7 @@ namespace WaveFunction.Shared.Monad
             }
         }
 
-        public T_Out Retrieve()
+        public TOut Retrieve()
         {
             if (_invalid)
                 throw new MethodAccessException("attempting to retrieve from monad when no data is available");
@@ -54,24 +52,24 @@ namespace WaveFunction.Shared.Monad
         }
 
 
-        Func<T_In, Maybe<T_In, T_New>, T_New> AddMonad<T_New>(Func<T_In, T_New> transformation)
+        Func<TIn, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TIn, T_New> transformation)
         {
-            return (test, maybe) => transformation(test);
+            return (test, _) => transformation(test);
         }
 
-        Func<T_Out, Maybe<T_In, T_New>, T_New> AddMonad<T_New>(Func<T_Out, T_New> transformation)
+        Func<TOut, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TOut, T_New> transformation)
         {
-            return (test, maybe) => transformation(test);
+            return (test, _) => transformation(test);
         }
 
-        public IMonad<T_In, T_New> Transform<T_New>(Func<T_Out, T_New> transformation) =>
+        public IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation) =>
             TransformMaybe(AddMonad(transformation));
 
-        public Maybe<T_In, T_New> TransformMaybe<T_New>(Func<T_Out, Maybe<T_In, T_New>, T_New> transformation)
+        public Maybe<TIn, TNew> TransformMaybe<TNew>(Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
         {
             if (transformation == null) throw new ArgumentNullException(nameof(transformation));
 
-            return new Maybe<T_In, T_New>((test, maybe) =>
+            return new Maybe<TIn, TNew>((test, maybe) =>
             {
                 try
                 {
@@ -90,8 +88,8 @@ namespace WaveFunction.Shared.Monad
 
         public bool HasValue() => !_invalid;
 
-        private readonly Func<T_In, Maybe<T_In, T_Out>, T_Out> _trans;
-        private T_Out? _result;
+        private readonly Func<TIn, Maybe<TIn, TOut>, TOut> _trans;
+        private TOut? _result;
         private bool _invalid;
 
         public List<Exception> Error { get; } = new List<Exception>();

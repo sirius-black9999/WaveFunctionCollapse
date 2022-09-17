@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace WaveFunctionCollapse.Scenes
+namespace WaveFunction.Shared
 {
     public class MultiScene<T> : IScene<T>
     {
@@ -39,7 +39,7 @@ namespace WaveFunctionCollapse.Scenes
         {
             All((s) => s.MouseScroll(up));
         }
-        
+
         private void All(Action<IScene<T>> perform)
         {
             foreach (var scene in _scenes)

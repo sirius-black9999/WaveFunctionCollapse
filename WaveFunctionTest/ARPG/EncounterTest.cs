@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using WaveFunction.ARPG.Characters;
-using WaveFunction.ARPG.Characters.Battle;
+using WaveFunction.ARPG.Battle;
+using WaveFunction.ARPG.Chars;
 
 namespace WaveFunctionTest.ARPG
 {
@@ -37,7 +36,7 @@ namespace WaveFunctionTest.ARPG
         public void A_Character_May_Have_Controls()
         {
             //Arrange
-            var ctrl = new PRomControl(t => new ActionReport());
+            var ctrl = new PRomControl(static _ => new ActionReport());
             var c1 = Character.Make.Player.WithController(ctrl);
             var c2 = Character.Make.Player;
             var e = new Encounter(c1, c2);

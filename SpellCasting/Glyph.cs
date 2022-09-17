@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Numerics;
 using Cairo;
-using GLib;
 
 namespace SpellCasting
 {

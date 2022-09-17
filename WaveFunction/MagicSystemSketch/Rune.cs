@@ -7,7 +7,6 @@ namespace WaveFunction.MagicSystemSketch
             _aspects = gest.Aspects;
         }
 
-        private readonly Dictionary<Aspect, double> _aspects;
 
         public double PushForce(Element element)
         {
@@ -16,7 +15,10 @@ namespace WaveFunction.MagicSystemSketch
 
             if (_aspects.ContainsKey(element.Negative()))
                 return -_aspects[element.Negative()];
+
             return 0;
         }
+
+        private readonly Dictionary<Aspect, double> _aspects;
     }
 }

@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using FsCheck;
-using FsCheck.Fluent;
 using WaveFunction.MagicSystemSketch;
 using WaveFunctionTest.PropertyTesting.Tooling;
 

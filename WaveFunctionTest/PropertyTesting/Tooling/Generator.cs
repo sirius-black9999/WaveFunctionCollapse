@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using WaveFunction;
 
 namespace WaveFunctionTest.PropertyTesting.Tooling
 {
@@ -15,19 +14,21 @@ namespace WaveFunctionTest.PropertyTesting.Tooling
 
         public static T[] MakeEnum(int count)
         {
-            var gen = new Generator<T>(randomizer => randomizer.NextEnum<T>());
-            return Enumerable.Range(0, count).Select(i => gen.Value()).ToArray();
+            var gen = new Generator<T>(static randomizer => randomizer.NextEnum<T>());
+            return Enumerable.Range(0, count).Select(_ => gen.Value()).ToArray();
         }
-        public static T[] Make(int count, Func<Randomizer, T> As)
+
+        public static T[] Make(int count, Func<Randomizer, T> @as)
         {
-            var gen = new Generator<T>(As);
-            return Enumerable.Range(0, count).Select(i => gen.Value()).ToArray();
+            var gen = new Generator<T>(@as);
+            return Enumerable.Range(0, count).Select(_ => gen.Value()).ToArray();
         }
-        public static T[] MakeRand(int min, int max, Func<Randomizer, T> As)
+
+        public static T[] MakeRand(int min, int max, Func<Randomizer, T> @as)
         {
             var intMaker = new Generator<int>(rand => rand.Next(min, max));
-            var gen = new Generator<T>(As);
-            return Enumerable.Range(0, intMaker.Value()).Select(i => gen.Value()).ToArray();
+            var gen = new Generator<T>(@as);
+            return Enumerable.Range(0, intMaker.Value()).Select(_ => gen.Value()).ToArray();
         }
 
         public T Value() => _rand(

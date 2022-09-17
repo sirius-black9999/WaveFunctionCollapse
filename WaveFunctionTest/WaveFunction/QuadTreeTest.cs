@@ -1,7 +1,8 @@
 using NUnit.Framework;
 using WaveFunction;
+using WaveFunction.WaveFunc;
 
-namespace WaveFunctionTest;
+namespace WaveFunctionTest.WaveFunction;
 
 public class QuadTreeTest
 {
@@ -22,15 +23,15 @@ public class QuadTreeTest
         //Arrange
         var tree = new QuadNode();
         //Act
-        var TL = tree[Corner.TopLeft];
-        var TR = tree[Corner.TopRight];
-        var BL = tree[Corner.BotLeft];
-        var BR = tree[Corner.BotRight];
+        var tl = tree[Corner.TopLeft];
+        var tr = tree[Corner.TopRight];
+        var bl = tree[Corner.BotLeft];
+        var br = tree[Corner.BotRight];
         //Assert
-        Assert.That(TL, Is.Null);
-        Assert.That(TR, Is.Null);
-        Assert.That(BL, Is.Null);
-        Assert.That(BR, Is.Null);
+        Assert.That(tl, Is.Null);
+        Assert.That(tr, Is.Null);
+        Assert.That(bl, Is.Null);
+        Assert.That(br, Is.Null);
     }
 
     [Test]
@@ -45,15 +46,15 @@ public class QuadTreeTest
             [Corner.BotRight] = new QuadNode()
         };
         //Act
-        var TL = tree[Corner.TopLeft];
-        var TR = tree[Corner.TopRight];
-        var BL = tree[Corner.BotLeft];
-        var BR = tree[Corner.BotRight];
+        var tl = tree[Corner.TopLeft];
+        var tr = tree[Corner.TopRight];
+        var bl = tree[Corner.BotLeft];
+        var br = tree[Corner.BotRight];
         //Assert
-        Assert.That(TL, Is.InstanceOf<QuadNode>());
-        Assert.That(TR, Is.InstanceOf<QuadNode>());
-        Assert.That(BL, Is.InstanceOf<QuadNode>());
-        Assert.That(BR, Is.InstanceOf<QuadNode>());
+        Assert.That(tl, Is.InstanceOf<QuadNode>());
+        Assert.That(tr, Is.InstanceOf<QuadNode>());
+        Assert.That(bl, Is.InstanceOf<QuadNode>());
+        Assert.That(br, Is.InstanceOf<QuadNode>());
     }
 
     [Test]
@@ -62,15 +63,15 @@ public class QuadTreeTest
         //Arrange
         var tree = QuadNode.MakeFull();
         //Act
-        var TL = tree[Corner.TopLeft];
-        var TR = tree[Corner.TopRight];
-        var BL = tree[Corner.BotLeft];
-        var BR = tree[Corner.BotRight];
+        var tl = tree[Corner.TopLeft];
+        var tr = tree[Corner.TopRight];
+        var bl = tree[Corner.BotLeft];
+        var br = tree[Corner.BotRight];
         //Assert
-        Assert.That(TL, Is.InstanceOf<QuadNode>());
-        Assert.That(TR, Is.InstanceOf<QuadNode>());
-        Assert.That(BL, Is.InstanceOf<QuadNode>());
-        Assert.That(BR, Is.InstanceOf<QuadNode>());
+        Assert.That(tl, Is.InstanceOf<QuadNode>());
+        Assert.That(tr, Is.InstanceOf<QuadNode>());
+        Assert.That(bl, Is.InstanceOf<QuadNode>());
+        Assert.That(br, Is.InstanceOf<QuadNode>());
     }
 
     [Test]
@@ -81,14 +82,14 @@ public class QuadTreeTest
         //Act
         var t2 = tree.Fill();
         //Assert
-        var TL = tree[Corner.TopLeft];
-        var TR = tree[Corner.TopRight];
-        var BL = tree[Corner.BotLeft];
-        var BR = tree[Corner.BotRight];
-        Assert.That(TL, Is.InstanceOf<QuadNode>());
-        Assert.That(TR, Is.InstanceOf<QuadNode>());
-        Assert.That(BL, Is.InstanceOf<QuadNode>());
-        Assert.That(BR, Is.InstanceOf<QuadNode>());
+        var tl = tree[Corner.TopLeft];
+        var tr = tree[Corner.TopRight];
+        var bl = tree[Corner.BotLeft];
+        var br = tree[Corner.BotRight];
+        Assert.That(tl, Is.InstanceOf<QuadNode>());
+        Assert.That(tr, Is.InstanceOf<QuadNode>());
+        Assert.That(bl, Is.InstanceOf<QuadNode>());
+        Assert.That(br, Is.InstanceOf<QuadNode>());
         Assert.That(t2, Is.EqualTo(tree));
     }
 
@@ -98,15 +99,15 @@ public class QuadTreeTest
         //Arrange
         var tree = QuadNode.MakeFull(static () => QuadNode.MakeFull());
         //Act
-        var TL = tree[Corner.TopLeft][Corner.TopRight];
-        var TR = tree[Corner.TopRight][Corner.BotLeft];
-        var BL = tree[Corner.BotLeft][Corner.TopLeft];
-        var BR = tree[Corner.BotRight][Corner.BotRight];
+        var tl = tree[Corner.TopLeft][Corner.TopRight];
+        var tr = tree[Corner.TopRight][Corner.BotLeft];
+        var bl = tree[Corner.BotLeft][Corner.TopLeft];
+        var br = tree[Corner.BotRight][Corner.BotRight];
         //Assert
-        Assert.That(TL, Is.InstanceOf<QuadNode>());
-        Assert.That(TR, Is.InstanceOf<QuadNode>());
-        Assert.That(BL, Is.InstanceOf<QuadNode>());
-        Assert.That(BR, Is.InstanceOf<QuadNode>());
+        Assert.That(tl, Is.InstanceOf<QuadNode>());
+        Assert.That(tr, Is.InstanceOf<QuadNode>());
+        Assert.That(bl, Is.InstanceOf<QuadNode>());
+        Assert.That(br, Is.InstanceOf<QuadNode>());
     }
 
     [Test]
@@ -115,14 +116,14 @@ public class QuadTreeTest
         //Arrange
         var tree = QuadNode.MakeFull(static () => new QuadNode().Fill(() => new QuadNode()));
         //Act
-        var TL = tree[Corner.TopLeft][Corner.TopRight][Corner.TopLeft];
-        var TR = tree[Corner.TopRight][Corner.BotLeft][Corner.TopLeft];
-        var BL = tree[Corner.BotLeft][Corner.TopLeft][Corner.TopLeft];
-        var BR = tree[Corner.BotRight][Corner.BotRight][Corner.TopLeft];
+        var tl = tree[Corner.TopLeft][Corner.TopRight][Corner.TopLeft];
+        var tr = tree[Corner.TopRight][Corner.BotLeft][Corner.TopLeft];
+        var bl = tree[Corner.BotLeft][Corner.TopLeft][Corner.TopLeft];
+        var br = tree[Corner.BotRight][Corner.BotRight][Corner.TopLeft];
         //Assert
-        Assert.That(TL, Is.Null);
-        Assert.That(TR, Is.Null);
-        Assert.That(BL, Is.Null);
-        Assert.That(BR, Is.Null);
+        Assert.That(tl, Is.Null);
+        Assert.That(tr, Is.Null);
+        Assert.That(bl, Is.Null);
+        Assert.That(br, Is.Null);
     }
 }

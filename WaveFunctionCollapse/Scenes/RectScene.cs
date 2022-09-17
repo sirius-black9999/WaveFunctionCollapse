@@ -1,11 +1,15 @@
 using System.Numerics;
+using Cairo;
+using WaveFunction.Shared;
 
 namespace WaveFunctionCollapse.Scenes
 {
-    public class RectScene : IScene<Cairo.Context>
+    public class RectScene : IScene<Context>
     {
-        public void Render(Cairo.Context cr, Vector2 size)
+        public void Render(Context cr, Vector2 size)
         {
+            if (cr == null) throw new ArgumentNullException(nameof(cr));
+
             cr.SetSourceRGB(0.2, 0.23, 0.9);
             cr.Rectangle(10, 15, 90, 60);
             cr.Fill();

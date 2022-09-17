@@ -1,20 +1,21 @@
+using WaveFunction.Shared;
 using WaveFunction.WaveFunc;
 
 namespace WaveFunction.MagicSystemSketch
 {
-    public class Spellbook
+    public class SpellBook
     {
-        public Spellbook()
+        public SpellBook()
         {
             _rand = new BaseRng();
         }
 
-        public Spellbook(IRng rand)
+        public SpellBook(IRng rand)
         {
             _rand = rand;
         }
 
-        public Spellbook AddSpell(Spell spell)
+        public SpellBook AddSpell(Spell spell)
         {
             _spellList.Add(spell);
             return this;
@@ -30,6 +31,7 @@ namespace WaveFunction.MagicSystemSketch
             {
                 options.Add(spell, spell.CastChance(phrase));
             }
+
             return options.Get().CastWith(phrase);
         }
 

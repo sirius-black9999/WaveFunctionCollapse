@@ -1,5 +1,6 @@
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
     public class Belt : IEquipment
     {
@@ -14,9 +15,6 @@ namespace WaveFunction.ARPG.Characters.Items
     {
         public Belt Done => new Belt(this);
 
-        public BeltMaker WithStat(StatUtil.CharacterStats armorStat, double mod)
-        {
-            return this;
-        }
+        public BeltMaker WithStat(StatUtil.CharacterStats armorStat, double mod) => this;
     }
 }

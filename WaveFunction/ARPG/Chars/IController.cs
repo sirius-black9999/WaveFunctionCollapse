@@ -1,4 +1,4 @@
-namespace WaveFunction.ARPG.Characters
+namespace WaveFunction.ARPG.Chars
 {
     public interface IController
     {
@@ -15,7 +15,7 @@ namespace WaveFunction.ARPG.Characters
         public ActionReport PerformTurnPhase(TurnPhase phase) => _onTurn(phase);
         private readonly Func<TurnPhase, ActionReport> _onTurn;
     }
-    
+
     public class DetailControl : IController
     {
         public DetailControl()
@@ -23,7 +23,7 @@ namespace WaveFunction.ARPG.Characters
             _phaseHandlers = new Dictionary<TurnPhase, Func<ActionReport>>();
             foreach (var turnPhase in Enum.GetValues<TurnPhase>())
             {
-                _phaseHandlers.Add(turnPhase, () => new ActionReport());
+                _phaseHandlers.Add(turnPhase, static () => new ActionReport());
             }
         }
 

@@ -1,4 +1,6 @@
 
+using WaveFunction.Shared;
+
 namespace WaveFunction.WaveFunc
 {
     public class BaseRng : IRng

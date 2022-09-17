@@ -2,7 +2,7 @@ using System.Numerics;
 using Cairo;
 using Gdk;
 using Gtk;
-using WaveFunctionCollapse.Scenes;
+using WaveFunction.Shared;
 using WaveFunctionEditor.Scenes;
 using Action = System.Action;
 using Key = Gdk.Key;
@@ -12,30 +12,31 @@ namespace WaveFunctionEditor
 {
     public class MainForm : Window
     {
-        private readonly Vector2 DrawingAreaSize = new Vector2(512, 512);
+        private readonly Vector2 _drawingAreaSize = new Vector2(512, 512);
+
         public MainForm() : base("Wave function collapse")
         {
             Fullscreen();
             SetPosition(WindowPosition.Center);
-            DeleteEvent += static delegate { Application.Quit(); };
+            DeleteEvent += static (_, _) => Application.Quit();
             KeyPressEvent += OnKeyPressEvent;
 
-            SetScene(new OpeningWindow());
+            _scene = new OpeningWindow();
 
             var grid = new Grid();
             Add(grid);
-            
+
             var dArea = new DrawingArea();
             dArea.Events |= EventMask.ScrollMask;
             dArea.Events |= EventMask.ButtonPressMask;
             dArea.Events |= EventMask.ButtonReleaseMask;
             dArea.Events |= EventMask.Button1MotionMask;
             dArea.Drawn += OnDraw;
-            dArea.ScrollEvent += (o, args) => _scene?.MouseScroll(args.Event.Direction == ScrollDirection.Up);
-            dArea.ButtonPressEvent += (o, args) => _scene?.MouseClick(mousePos());
-            dArea.ButtonReleaseEvent += (o, args) => _scene?.MouseRelease(mousePos());
-            dArea.DragMotion += (o, args) => _scene?.MouseDrag(mousePos());
-            dArea.SetSizeRequest((int)DrawingAreaSize.X, (int)DrawingAreaSize.Y);
+            dArea.ScrollEvent += (_, args) => _scene.MouseScroll(args.Event.Direction == ScrollDirection.Up);
+            dArea.ButtonPressEvent += (_, _) => _scene.MouseClick(MousePos());
+            dArea.ButtonReleaseEvent += (_, _) => _scene.MouseRelease(MousePos());
+            dArea.DragMotion += (_, _) => _scene.MouseDrag(MousePos());
+            dArea.SetSizeRequest((int)_drawingAreaSize.X, (int)_drawingAreaSize.Y);
             grid.Add(dArea);
 
             var loadFile = new Button("Load file");
@@ -44,16 +45,19 @@ namespace WaveFunctionEditor
             saveFile.Clicked += OnSaveFileOnClicked;
             grid.Add(loadFile);
             grid.Add(saveFile);
-            
-            var scenePicker = new ComboBox(new[] {"SourceImage", "Render", "Passability"});
+
+            var scenePicker = new ComboBox(new[] { "SourceImage", "Render", "Passability" });
             scenePicker.Changed += ScenePickerOnChanged;
             grid.Add(scenePicker);
-            
+
             ShowAll();
         }
 
         private void ScenePickerOnChanged(object? sender, EventArgs e)
         {
+            if (sender == null) throw new ArgumentNullException(nameof(sender));
+            if (e == null) throw new ArgumentNullException(nameof(e));
+
             var combo = sender as ComboBox;
             if (combo == null) return;
 
@@ -67,28 +71,37 @@ namespace WaveFunctionEditor
             SetScene(scenes[combo.Active]);
         }
 
-        private void OnSaveFileOnClicked(object o, EventArgs args)
+        private void OnSaveFileOnClicked(object? o, EventArgs args)
         {
+            if (o == null) throw new ArgumentNullException(nameof(o));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+
             var md = new FileChooserDialog("Saving file", this, FileChooserAction.Save);
             md.Run();
             md.Destroy();
         }
 
-        private void OnLoadFileOnClicked(object o, EventArgs args)
+        private void OnLoadFileOnClicked(object? o, EventArgs args)
         {
+            if (o == null) throw new ArgumentNullException(nameof(o));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+
             var md = new FileChooserDialog("Loading file", this, FileChooserAction.Open);
             md.Run();
             md.Destroy();
         }
 
 
-        public void SetScene(IScene<Cairo.Context> scene)
+        public void SetScene(IScene<Context> scene)
         {
-            _scene = scene;
+            _scene = scene ?? throw new ArgumentNullException(nameof(scene));
         }
 
-        void OnKeyPressEvent(object? sender, KeyPressEventArgs args)
+        void OnKeyPressEvent(object sender, KeyPressEventArgs args)
         {
+            if (sender == null) throw new ArgumentNullException(nameof(sender));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+
             var evtMap = new Dictionary<Key, Action>()
             {
                 { Key.q, static () => Application.Quit() },
@@ -100,25 +113,32 @@ namespace WaveFunctionEditor
 
         void OnDraw(object sender, DrawnArgs args)
         {
-            var area = (DrawingArea)sender;
-            var cr = Gdk.CairoHelper.Create(area.Window);
+            if (sender == null) throw new ArgumentNullException(nameof(sender));
+            if (args == null) throw new ArgumentNullException(nameof(args));
 
-            _scene.Render(cr, DrawingAreaSize);
+            var area = (DrawingArea)sender;
+#pragma warning disable CS0612
+            var cr = Gdk.CairoHelper.Create(area.Window);
+#pragma warning restore CS0612
+
+            _scene.Render(cr, _drawingAreaSize);
             ((IDisposable)cr.GetTarget()).Dispose();
             ((IDisposable)cr).Dispose();
-            _scene.Update(frame++, mousePos());
+            _scene.Update(_frame++, MousePos());
             //Render another frame
             area.QueueDraw();
         }
 
-        private Vector2 mousePos()
+        private Vector2 MousePos()
         {
             int mx, my;
+#pragma warning disable CS0612
             Child.GetPointer(out mx, out my);
+#pragma warning restore CS0612
             return new Vector2(mx, my);
         }
 
-        private IScene<Cairo.Context> _scene;
-        private int frame = 0;
+        private IScene<Context> _scene;
+        private int _frame;
     }
 }

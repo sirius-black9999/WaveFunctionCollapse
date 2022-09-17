@@ -36,12 +36,9 @@ namespace WaveFunction.ARPG.Battle
             Tiles = new Tile[(int)(size.X * size.Y)];
             Size = size;
             FillDefault();
-            oldSize.Foreach(Position =>
+            oldSize.Foreach(position =>
             {
-                if (size.Contains(Position))
-                {
-                    Tiles[size.IndexOf(Position)] = oldTiles[oldSize.IndexOf(Position)];
-                }
+                if (size.Contains(position)) Tiles[size.IndexOf(position)] = oldTiles[oldSize.IndexOf(position)];
             });
         }
 
@@ -55,6 +52,8 @@ namespace WaveFunction.ARPG.Battle
 
         public BattleMapMaker Randomized(IRng rng)
         {
+            if (rng == null) throw new ArgumentNullException(nameof(rng));
+
             Size.Foreach(pos =>
                 Tiles[Size.IndexOf(pos)].SetCol(rng.Next(), rng.Next(), rng.Next()));
             return this;

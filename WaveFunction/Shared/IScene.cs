@@ -1,7 +1,7 @@
 
 using System.Numerics;
 
-namespace WaveFunctionCollapse.Scenes
+namespace WaveFunction.Shared
 {
     public interface IScene<in TContext>
     {

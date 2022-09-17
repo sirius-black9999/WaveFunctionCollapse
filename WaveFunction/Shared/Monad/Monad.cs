@@ -1,23 +1,25 @@
 namespace WaveFunction.Shared.Monad
 {
-    public class Monad<T_In, T_Out> : IMonad<T_In, T_Out>
+    public class Monad<TIn, TOut> : IMonad<TIn, TOut>
     {
-        public Monad(Func<T_In, T_Out> transformation)
+        public Monad(Func<TIn, TOut> transformation)
         {
             _trans = transformation;
         }
-        public virtual void Run(T_In i) => input = i;
-        public virtual T_Out Retrieve() => _trans(input);
-        public IMonad<T_In, T_New> Transform<T_New>(Func<T_Out, T_New> transformation)
+
+        public virtual void Run(TIn i) => _input = i;
+        public virtual TOut Retrieve() => _trans(_input);
+
+        public IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation)
         {
-            return new Monad<T_In, T_New>(test =>
+            return new Monad<TIn, TNew>(test =>
             {
                 Run(test);
                 return transformation(Retrieve());
             });
         }
-        
-        private readonly Func<T_In, T_Out> _trans;
-        private T_In input;
+
+        private readonly Func<TIn, TOut> _trans;
+        private TIn _input;
     }
 }

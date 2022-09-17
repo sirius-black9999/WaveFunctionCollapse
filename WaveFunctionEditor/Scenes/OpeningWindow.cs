@@ -1,6 +1,6 @@
 using System.Numerics;
 using Cairo;
-using WaveFunctionCollapse.Scenes;
+using WaveFunction.Shared;
 
 namespace WaveFunctionEditor.Scenes
 {
@@ -8,6 +8,8 @@ namespace WaveFunctionEditor.Scenes
     {
         public void Render(Context cr, Vector2 size)
         {
+            if (cr == null) throw new ArgumentNullException(nameof(cr));
+
             cr.LineWidth = 9;
             cr.SetSourceRGB(0.7, 0.2, 0.0);
 

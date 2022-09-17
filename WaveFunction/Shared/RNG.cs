@@ -1,5 +1,5 @@
 
-namespace WaveFunction
+namespace WaveFunction.Shared
 {
     public interface IRng
     {

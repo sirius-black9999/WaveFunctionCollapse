@@ -1,6 +1,6 @@
-using System.ComponentModel;
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters
+namespace WaveFunction.ARPG.Battle
 {
     public class Attack
     {
@@ -26,7 +26,7 @@ namespace WaveFunction.ARPG.Characters
             AtkStats = new Dictionary<StatUtil.AtkStats, Func<double>>();
             foreach (var stat in Enum.GetValues<StatUtil.AtkStats>())
             {
-                AtkStats.Add(stat, () => 0);
+                AtkStats.Add(stat, static () => 0);
             }
         }
 
@@ -37,6 +37,7 @@ namespace WaveFunction.ARPG.Characters
             AtkStats[s] = () => i;
             return this;
         }
+
         public Dictionary<StatUtil.AtkStats, Func<double>> AtkStats { get; }
     }
 }

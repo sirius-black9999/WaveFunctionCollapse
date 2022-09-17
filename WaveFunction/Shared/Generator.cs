@@ -1,8 +1,4 @@
-using System;
-using System.Linq;
-using WaveFunction;
-
-namespace WaveFunctionTest.PropertyTesting.Tooling
+namespace WaveFunction.Shared
 {
     public class Generator<T>
     {
@@ -11,10 +7,10 @@ namespace WaveFunctionTest.PropertyTesting.Tooling
             _rand = random;
         }
 
-        public static T[] Make(int count,IRng rand, Func<IRng, T> As)
+        public static T[] Make(int count, IRng rand, Func<IRng, T> @as)
         {
-            var gen = new Generator<T>(As);
-            return Enumerable.Range(0, count).Select(i => gen.Value(rand)).ToArray();
+            var gen = new Generator<T>(@as);
+            return Enumerable.Range(0, count).Select(_ => gen.Value(rand)).ToArray();
         }
 
         public T Value(IRng rand) => _rand(rand);

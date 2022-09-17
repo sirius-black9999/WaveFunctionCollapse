@@ -37,16 +37,17 @@ namespace WaveFunctionTest.MagicSystem
         {
             var cast = new Incantation();
             cast.Inscribe(new Gesture().Record(Aspect.Ignis).Record(Aspect.Tellus).Resolve());
-            cast.Inscribe(new Gesture().Record(Aspect.Vitrio,3).Record(Aspect.Tellus).Resolve());
+            cast.Inscribe(new Gesture().Record(Aspect.Vitrio, 3).Record(Aspect.Tellus).Resolve());
             Assert.That(cast.Element(tested), Is.EqualTo(strength));
         }
+
         [TestCase(Element.Febris, 0.5)]
         [TestCase(Element.Solidum, -0.75)]
         public void Opposite_Aspects_Affect_Eachother(Element tested, double strength)
         {
             var cast = new Incantation();
             cast.Inscribe(new Gesture().Record(Aspect.Ignis).Record(Aspect.Tellus).Resolve());
-            cast.Inscribe(new Gesture().Record(Aspect.Hydris,0.5).Record(Aspect.Aeolis, 1.75).Resolve());
+            cast.Inscribe(new Gesture().Record(Aspect.Hydris, 0.5).Record(Aspect.Aeolis, 1.75).Resolve());
             Assert.That(cast.Element(tested), Is.EqualTo(strength));
         }
 

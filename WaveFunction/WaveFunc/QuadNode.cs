@@ -1,4 +1,4 @@
-namespace WaveFunction
+namespace WaveFunction.WaveFunc
 {
     public enum Corner
     {
@@ -12,7 +12,7 @@ namespace WaveFunction
     {
         public QuadNode this[Corner c]
         {
-            get => Nodes.ContainsKey(c) ? Nodes[c] : null;
+            get => Nodes.ContainsKey(c) ? Nodes[c] : new QuadNode();
             set => Nodes[c] = value;
         }
 

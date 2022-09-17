@@ -1,4 +1,4 @@
-namespace WaveFunction.Extensions
+namespace WaveFunction.WaveFunc.Extensions
 {
     public static class Helpers
     {
@@ -19,7 +19,7 @@ namespace WaveFunction.Extensions
 
         public static double TotalWeight<T>(this IEnumerable<BagEntry<T>> entries)
         {
-            return entries.Sum(kvp => kvp.Weight);
+            return entries.Sum(static kvp => kvp.Weight);
         }
     }
 }

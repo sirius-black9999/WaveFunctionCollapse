@@ -1,4 +1,4 @@
-﻿namespace WaveFunction;
+﻿namespace WaveFunction.WaveFunc;
 
 public class QuadTree
 {

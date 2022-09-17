@@ -78,15 +78,15 @@ namespace WaveFunction.MagicSystemSketch
                 { Aspect.Levitas, Element.Inertiae },
                 { Aspect.Malus, Element.Subsidium },
                 { Aspect.Iuxta, Element.Spatium },
-                
-                { Aspect.Tellus,Element.Solidum },
-                { Aspect.Ignis,Element.Febris },
-                { Aspect.Vitrio,Element.Ordinem },
-                { Aspect.Luminus,Element.Lumines },
-                { Aspect.Spatius,Element.Varias },
-                { Aspect.Gravitas,Element.Inertiae },
-                { Aspect.Auxillus,Element.Subsidium },
-                { Aspect.Disis,Element.Spatium }
+
+                { Aspect.Tellus, Element.Solidum },
+                { Aspect.Ignis, Element.Febris },
+                { Aspect.Vitrio, Element.Ordinem },
+                { Aspect.Luminus, Element.Lumines },
+                { Aspect.Spatius, Element.Varias },
+                { Aspect.Gravitas, Element.Inertiae },
+                { Aspect.Auxillus, Element.Subsidium },
+                { Aspect.Disis, Element.Spatium }
             };
             return conversion[a];
         }

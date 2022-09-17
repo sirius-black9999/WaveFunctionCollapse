@@ -1,7 +1,7 @@
 using System.Numerics;
 using Cairo;
 using WaveFunction.MagicSystemSketch;
-using WaveFunctionCollapse.Scenes;
+using WaveFunction.Shared;
 
 namespace SpellCasting
 {
@@ -107,12 +107,12 @@ namespace SpellCasting
             //Unused
         }
 
-        private readonly Spellbook _book = Bookmaker.NewBook();
+        private readonly SpellBook _book = Bookmaker.NewBook();
         private Incantation _casting = new Incantation();
         private Gesture _currentRune = new Gesture();
         private readonly List<Vector3> _positions = new List<Vector3>();
-        public Func<Vector2> GetMousePos { get; set; } = () => new Vector2();
-        public Func<bool> IsPressed { get; set; } = () => false;
-        public Func<double> Depth { get; set; } = () => 0;
+        public Func<Vector2> GetMousePos { get; set; } = static () => new Vector2();
+        public Func<bool> IsPressed { get; set; } = static () => false;
+        public Func<double> Depth { get; set; } = static () => 0;
     }
 }

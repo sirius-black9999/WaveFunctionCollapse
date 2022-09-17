@@ -1,11 +1,9 @@
 using System.Numerics;
 using Cairo;
-using WaveFunction;
 using WaveFunction.MagicSystemSketch;
 using WaveFunction.Shared;
 using WaveFunction.Voronoi;
 using WaveFunction.WaveFunc;
-using WaveFunctionTest.PropertyTesting.Tooling;
 
 namespace WaveFunctionCollapse.Scenes
 {
@@ -13,7 +11,7 @@ namespace WaveFunctionCollapse.Scenes
     {
         private static readonly IRng Rand = new BaseRng();
 
-        private static Locus[] Points => Generator<Locus>.Make(15, Rand, static rng =>
+        private static Locus[] Points => Generator<Locus>.Make(15, Rand, static _ =>
         {
             return new Locus()
             {
@@ -28,6 +26,8 @@ namespace WaveFunctionCollapse.Scenes
 
         public void Render(Context cr, Vector2 size)
         {
+            if (cr == null) throw new ArgumentNullException(nameof(cr));
+
             _gridSize.Foreach(RenderTile, cr);
         }
 

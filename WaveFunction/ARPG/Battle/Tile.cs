@@ -8,11 +8,10 @@ namespace WaveFunction.ARPG.Battle
 
         public Tile(TileMaker m)
         {
-            _passable = m.Passable;
+            MayPass = m.Passable;
         }
 
-        public bool MayPass => _passable;
-        private readonly bool _passable;
+        public bool MayPass { get; }
 
         public void SetCol(double red, double green, double blue)
         {
@@ -36,6 +35,6 @@ namespace WaveFunction.ARPG.Battle
         }
 
         public Tile Result => new Tile(this);
-        public bool Passable { get; set; }
+        public bool Passable { get; private set; }
     }
 }

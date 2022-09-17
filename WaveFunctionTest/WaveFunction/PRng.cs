@@ -1,8 +1,8 @@
-
 using System.Collections.Generic;
 using WaveFunction;
+using WaveFunction.Shared;
 
-namespace WaveFunctionTest
+namespace WaveFunctionTest.WaveFunction
 {
     public class PRng : IRng
     {
@@ -10,6 +10,7 @@ namespace WaveFunctionTest
         {
             _valueQueue = new Queue<double>(values);
         }
+
         public double Next() => _valueQueue.Dequeue();
         private readonly Queue<double> _valueQueue;
     }

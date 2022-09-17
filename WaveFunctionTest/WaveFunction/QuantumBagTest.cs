@@ -1,9 +1,9 @@
-
 using System;
 using NUnit.Framework;
-using WaveFunction;
+using WaveFunction.Shared;
+using WaveFunction.WaveFunc;
 
-namespace WaveFunctionTest
+namespace WaveFunctionTest.WaveFunction
 {
     public class QuantumBagTest
     {
@@ -17,6 +17,7 @@ namespace WaveFunctionTest
             //Assert
             Assert.That(size, Is.EqualTo(0));
         }
+
         [Test]
         public void Adding_Value_Changes_Size()
         {
@@ -28,6 +29,7 @@ namespace WaveFunctionTest
             var size = bag.Count;
             Assert.That(size, Is.EqualTo(1));
         }
+
         [Test]
         public void Label_May_Be_Used_To_Retrieve_Weight()
         {
@@ -39,6 +41,7 @@ namespace WaveFunctionTest
             //Assert
             Assert.That(weight, Is.EqualTo(1));
         }
+
         [Test]
         public void Add_Can_Take_Custom_Weight()
         {
@@ -50,6 +53,7 @@ namespace WaveFunctionTest
             //Assert
             Assert.That(weight, Is.EqualTo(6));
         }
+
         [TestCase(1, 2, 2)]
         //[TestCase(2, 2, 4)]
         public void Weights_May_Be_Resized(double initial, double mutation, double expected)
@@ -63,7 +67,7 @@ namespace WaveFunctionTest
             var size = bag.Weight(label);
             Assert.That(size, Is.EqualTo(expected));
         }
-        
+
         [TestCase(1, 0.0)]
         [TestCase(1, 0.49)]
         [TestCase(2, 0.51)]
@@ -80,12 +84,11 @@ namespace WaveFunctionTest
             //Assert
             Assert.That(ret, Is.EqualTo(expected));
         }
-        
+
         [TestCase(1, 0.0, 2)]
         [TestCase(1, 0.32, 2)]
         [TestCase(2, 0.34, 2)]
         [TestCase(2, 1.0, 2)]
-        
         [TestCase(1, 0.0, 3)]
         [TestCase(1, 0.24, 3)]
         [TestCase(2, 0.26, 3)]
@@ -102,6 +105,7 @@ namespace WaveFunctionTest
             //Assert
             Assert.That(ret, Is.EqualTo(expected));
         }
+
         [Test]
         public void Retrieving_From_Empty_Bag_Throws()
         {
@@ -110,7 +114,7 @@ namespace WaveFunctionTest
             //Act/Assert
             Assert.Throws<InvalidOperationException>(() => bag.Get(), "Bag is empty");
         }
-        
+
         [Test]
         public void Once_Picked_Bag_Will_Fire_Event_Associated_With_Entry()
         {

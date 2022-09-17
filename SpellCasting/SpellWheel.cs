@@ -6,10 +6,8 @@ namespace SpellCasting
 {
     public static class SpellWheel
     {
-        private static Vector3 ScaleBy(Vector3 input, Vector2 scalar)
-        {
-            return new Vector3(input.X * scalar.X, input.Y * scalar.Y, input.Z);
-        }
+        private static Vector3 ScaleBy(Vector3 input, Vector2 scalar) =>
+            new Vector3(input.X * scalar.X, input.Y * scalar.Y, input.Z);
 
         private static readonly Dictionary<Element, Vector2> GlyphPositions = new Dictionary<Element, Vector2>()
         {
@@ -49,16 +47,14 @@ namespace SpellCasting
 
         private static readonly int GlyphSize = 20;
 
-        private static Vector2 GlyphLocal(float x, float y)
-        {
-            return new Vector2(x * GlyphSize, y * GlyphSize);
-        }
+        private static Vector2 GlyphLocal(float x, float y) => 
+            new Vector2(x * GlyphSize, y * GlyphSize);
 
-        public static GlyphMaker BaseGlyph(Vector3 Negative, Vector3 Neutral, Vector3 Positive) =>
+        public static GlyphMaker BaseGlyph(Vector3 negative, Vector3 neutral, Vector3 positive) =>
             Glyph.Make()
-                .WithColor(Negative, Glyph.Position.Negative)
-                .WithColor(Neutral, Glyph.Position.Neutral)
-                .WithColor(Positive, Glyph.Position.Positive)
+                .WithColor(negative, Glyph.Position.Negative)
+                .WithColor(neutral, Glyph.Position.Neutral)
+                .WithColor(positive, Glyph.Position.Positive)
                 .WithLine(GlyphLocal(-1, -1), GlyphLocal(1, -1))
                 .WithLine(GlyphLocal(1, -1), GlyphLocal(1, 1))
                 .WithLine(GlyphLocal(1, 1), GlyphLocal(-1, 1))

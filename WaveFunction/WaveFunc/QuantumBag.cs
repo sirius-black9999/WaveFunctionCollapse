@@ -1,7 +1,7 @@
-using WaveFunction.Extensions;
-using WaveFunction.WaveFunc;
+using WaveFunction.Shared;
+using WaveFunction.WaveFunc.Extensions;
 
-namespace WaveFunction
+namespace WaveFunction.WaveFunc
 {
     public class BagEntry<T>
     {

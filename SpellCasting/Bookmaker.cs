@@ -1,4 +1,3 @@
-using WaveFunction;
 using WaveFunction.MagicSystemSketch;
 using WaveFunction.WaveFunc;
 
@@ -87,13 +86,14 @@ namespace SpellCasting
             },
         };
 
-        public static Spellbook NewBook()
+        public static SpellBook NewBook()
         {
-            var book = new Spellbook(new BaseRng());
+            var book = new SpellBook(new BaseRng());
             foreach (var ench in Enchants)
             {
                 book.AddSpell(NewSpell(ench));
             }
+
             return book;
         }
 
@@ -104,6 +104,7 @@ namespace SpellCasting
             {
                 inc.Inscribe(NewRune(rune));
             }
+
             return new Spell(ench.Key, inc);
         }
 

@@ -1,4 +1,4 @@
-namespace WaveFunction.ARPG.Characters
+namespace WaveFunction.ARPG.Chars
 {
     public static class CharDefs
     {

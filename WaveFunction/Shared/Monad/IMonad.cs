@@ -1,10 +1,10 @@
 
 namespace WaveFunction.Shared.Monad
 {
-    public interface IMonad<T_In, T_Out>
+    public interface IMonad<in TIn, out TOut>
     {
-        void Run(T_In i);
-        T_Out Retrieve();
-        IMonad<T_In, T_New> Transform<T_New>(Func<T_Out, T_New> transformation);
+        void Run(TIn i);
+        TOut Retrieve();
+        IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation);
     }
 }

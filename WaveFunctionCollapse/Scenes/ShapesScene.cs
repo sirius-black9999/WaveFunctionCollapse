@@ -1,11 +1,15 @@
 using System.Numerics;
+using WaveFunction.Shared;
+using Cairo;
 
 namespace WaveFunctionCollapse.Scenes
 {
-    public class ShapesScene : IScene<Cairo.Context>
+    public class ShapesScene : IScene<Context>
     {
-        public void Render(Cairo.Context cc, Vector2 size)
+        public void Render(Context cc, Vector2 size)
         {
+            if (cc == null) throw new ArgumentNullException(nameof(cc));
+
             cc.SetSourceRGB(0.2, 0.23, 0.9);
             cc.LineWidth = 1;
 

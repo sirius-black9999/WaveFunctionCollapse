@@ -1,24 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
-using WaveFunction.ARPG.Characters;
-using WaveFunction.ARPG.Characters.Items;
+using WaveFunction.ARPG.Battle;
+using WaveFunction.ARPG.Chars;
+using WaveFunction.ARPG.Items;
 using WaveFunctionTest.PropertyTesting.Tooling;
-using static System.Linq.Enumerable;
-using static WaveFunction.ARPG.Characters.StatUtil;
+using static WaveFunction.ARPG.Chars.StatUtil;
 
 namespace WaveFunctionTest.ARPG
 {
     public class Combat
     {
-        [DatapointSource] private Stat[] allStat => Generator<Stat>.MakeEnum(4);
-        [DatapointSource] private AtkStats[] atkStat => Generator<AtkStats>.MakeEnum(4);
-        [DatapointSource] private CharacterStats[] charStat => Generator<CharacterStats>.MakeEnum(4);
-        [DatapointSource] private DamageStats[] dmgStat => Generator<DamageStats>.MakeEnum(4);
+        [DatapointSource] private Stat[] AllStat => Generator<Stat>.MakeEnum(4);
+        [DatapointSource] private AtkStats[] AtkStat => Generator<AtkStats>.MakeEnum(4);
+        [DatapointSource] private CharacterStats[] CharStat => Generator<CharacterStats>.MakeEnum(4);
+        [DatapointSource] private DamageStats[] DmgStat => Generator<DamageStats>.MakeEnum(4);
 
         [Theory]
         public void Base_Stats_May_Be_Set_Via_Builder([Random(10, 1000, 5)] int stat, CharacterStats s)

@@ -1,7 +1,7 @@
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
-    
     public class Helmet : IEquipment
     {
         public Helmet(HelmetMaker maker)
@@ -15,9 +15,6 @@ namespace WaveFunction.ARPG.Characters.Items
     {
         public Helmet Done => new Helmet(this);
 
-        public HelmetMaker WithStat(StatUtil.CharacterStats armorStat, double mod)
-        {
-            return this;
-        }
+        public HelmetMaker WithStat(StatUtil.CharacterStats armorStat, double mod) => this;
     }
 }

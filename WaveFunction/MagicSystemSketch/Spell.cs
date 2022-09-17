@@ -1,34 +1,31 @@
-
 namespace WaveFunction.MagicSystemSketch
 {
     public class Spell
     {
-        public Spell(string Name, params Aspect[] aspects)
+        public Spell(string name, params Aspect[] aspects)
         {
             foreach (var element in Enum.GetValues<Element>())
             {
                 _aspects.Add(element, 0);
             }
-            this.Name = Name;
+
+            Name = name;
             foreach (var aspect in aspects)
             {
                 var ele = aspect.IsElement();
                 double expected = 1;
-                if (aspect == ele.Negative())
-                {
-                    expected *= -1;
-                }
+                if (aspect == ele.Negative()) expected *= -1;
 
                 _aspects[ele] += expected;
             }
         }
 
-        public Spell(string Name, Incantation Template)
+        public Spell(string name, Incantation template)
         {
-            this.Name = Name;
+            Name = name;
             foreach (var element in Enum.GetValues<Element>())
             {
-                _aspects.Add(element, Template.Element(element));
+                _aspects.Add(element, template.Element(element));
             }
         }
 
@@ -56,10 +53,11 @@ namespace WaveFunction.MagicSystemSketch
                 Range = cast.Element(Element.Spatium) - _aspects[Element.Spatium],
                 Stability = CastChance(cast)
             };
+
         public string Name { get; }
 
         private readonly Dictionary<Element, double> _aspects = new Dictionary<Element, double>();
-        
+
         public double Hardness { get; private set; }
         public double Heat { get; private set; }
         public double Entropy { get; private set; }

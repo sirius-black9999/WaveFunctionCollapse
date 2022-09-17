@@ -10,7 +10,7 @@ internal static class Program
     public static void Main(string[] args)
     {
         Application.Init();
-        new MainForm(); //NOSONAR
+        using var form = new MainForm(); //NOSONAR
 
         Application.Run();
     }

@@ -1,7 +1,7 @@
-using System.Numerics;
-using WaveFunction.ARPG.Characters.Items;
+using WaveFunction.ARPG.Battle;
+using WaveFunction.ARPG.Items;
 
-namespace WaveFunction.ARPG.Characters
+namespace WaveFunction.ARPG.Chars
 {
     public enum TurnPhase
     {
@@ -40,14 +40,7 @@ namespace WaveFunction.ARPG.Characters
             _ctrl = builder.Ctrl;
         }
 
-        public ActionReport PerformTurnPhase(TurnPhase phase)
-        {
-            if (_ctrl != null)
-                return _ctrl.PerformTurnPhase(phase);
-
-            Console.WriteLine("No Controller found, idling");
-            return new ActionReport();
-        }
+        public ActionReport PerformTurnPhase(TurnPhase phase) => _ctrl.PerformTurnPhase(phase);
 
         private readonly IController _ctrl;
         public static CharacterBuilder Make => new CharacterBuilder();
@@ -57,6 +50,8 @@ namespace WaveFunction.ARPG.Characters
 
         public void HitWith(Attack attack)
         {
+            if (attack == null) throw new ArgumentNullException(nameof(attack));
+
             var newValue = _baseStats[StatUtil.CharacterStats.HealthCurrent]() - attack.SumDamage;
             _baseStats[StatUtil.CharacterStats.HealthCurrent] = () => newValue;
         }
@@ -76,7 +71,7 @@ namespace WaveFunction.ARPG.Characters
         public double this[StatUtil.CharacterStats name] => _baseStats[name]();
         private readonly Dictionary<StatUtil.CharacterStats, Func<double>> _baseStats;
 
-        private readonly Dictionary<EquipSlots, ItemBase> _equipment;
+        private readonly Dictionary<EquipSlots, IItemBase> _equipment;
     }
 
 
@@ -90,7 +85,8 @@ namespace WaveFunction.ARPG.Characters
                 Stats.Add(stat, static () => 100);
             }
 
-            Equipment = new Dictionary<EquipSlots, ItemBase>();
+            Equipment = new Dictionary<EquipSlots, IItemBase>();
+            Ctrl = new PRomControl(static _ => new ActionReport());
             foreach (var value in Enum.GetValues<EquipSlots>())
             {
                 Equipment.Add(value, StatUtil.Defaults[value]);
@@ -98,10 +94,11 @@ namespace WaveFunction.ARPG.Characters
         }
 
         public CharacterBuilder(Dictionary<StatUtil.CharacterStats, Func<double>> stats,
-            Dictionary<EquipSlots, ItemBase> equip)
+            Dictionary<EquipSlots, IItemBase> equip)
         {
             Stats = stats;
             Equipment = equip;
+            Ctrl = new PRomControl(static _ => new ActionReport());
         }
 
         public CharacterBuilder WithStat(StatUtil.CharacterStats statName, double statVal)
@@ -116,7 +113,7 @@ namespace WaveFunction.ARPG.Characters
             return this;
         }
 
-        public CharacterBuilder WearingItem(EquipSlots slot, ItemBase item)
+        public CharacterBuilder WearingItem(EquipSlots slot, IItemBase item)
         {
             Equipment[slot] = item;
             return this;
@@ -125,7 +122,7 @@ namespace WaveFunction.ARPG.Characters
         public Character Result => new Character(this);
 
         public Dictionary<StatUtil.CharacterStats, Func<double>> Stats { get; }
-        public Dictionary<EquipSlots, ItemBase> Equipment { get; }
+        public Dictionary<EquipSlots, IItemBase> Equipment { get; }
         public IController Ctrl { get; private set; }
         public Character Player => CharDefs.Player;
 

@@ -1,7 +1,7 @@
 using System.Numerics;
 using Gdk;
 using Gtk;
-using WaveFunctionCollapse.Scenes;
+using WaveFunction.Shared;
 using Key = Gdk.Key;
 using Action = System.Action;
 using Window = Gtk.Window;
@@ -14,7 +14,7 @@ namespace SpellCasting
         {
             SetDefaultSize(800, 600);
             SetPosition(WindowPosition.Center);
-            DeleteEvent += static delegate { Application.Quit(); };
+            DeleteEvent += static (_, _) => Application.Quit();
             KeyPressEvent += OnKeyPressEvent;
 
             var dArea = new DrawingArea();
@@ -24,16 +24,16 @@ namespace SpellCasting
             dArea.Events |= EventMask.ButtonMotionMask;
             dArea.Drawn += OnDraw;
             dArea.ScrollEvent += OnScrollEventHandler;
-            dArea.ButtonPressEvent += (o, args) => pressed = true;
-            dArea.ButtonReleaseEvent += (o, args) => pressed = false;
+            dArea.ButtonPressEvent += (_, _) => _pressed = true;
+            dArea.ButtonReleaseEvent += (_, _) => _pressed = false;
             var castWin = new CastWindow
             {
-                GetMousePos = mousePos,
-                Depth = () => value,
-                IsPressed = () => pressed
+                GetMousePos = MousePos,
+                Depth = () => _value,
+                IsPressed = () => _pressed
             };
 
-            SetScene(castWin);
+            _scene = castWin;
 
             Add(dArea);
 
@@ -45,27 +45,30 @@ namespace SpellCasting
             var amount = 0.1;
             if (args.Event.Direction == ScrollDirection.Down)
                 amount *= -1;
-            value += amount;
-            value = Math.Clamp(value, -1, 1);
+            _value += amount;
+            _value = Math.Clamp(_value, -1, 1);
         }
 
-        private Vector2 mousePos()
+        private Vector2 MousePos()
         {
             int mx, my;
+#pragma warning disable CS0612
             Child.GetPointer(out mx, out my);
+#pragma warning restore CS0612
             return new Vector2(mx, my);
         }
 
-        private bool pressed;
-        private double value;
 
         public void SetScene(IScene<Cairo.Context> scene)
         {
             _scene = scene;
         }
 
-        void OnKeyPressEvent(object? sender, KeyPressEventArgs args)
+        void OnKeyPressEvent(object sender, KeyPressEventArgs args)
         {
+            if (sender == null) throw new ArgumentNullException(nameof(sender));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+
             var evtMap = new Dictionary<Key, Action>()
             {
                 { Key.q, static () => Application.Quit() },
@@ -77,18 +80,22 @@ namespace SpellCasting
         void OnDraw(object sender, EventArgs args)
         {
             var area = (DrawingArea)sender;
+#pragma warning disable CS0612
             var cr = Gdk.CairoHelper.Create(area.Window);
+#pragma warning restore CS0612
             var size = new Vector2(Allocation.Width, Allocation.Height);
 
             _scene.Render(cr, size);
             ((IDisposable)cr.GetTarget()).Dispose();
             ((IDisposable)cr).Dispose();
-            _scene.Update(frame++, mousePos());
+            _scene.Update(_frame++, MousePos());
             //Render another frame
             area.QueueDraw();
         }
 
+        private bool _pressed;
+        private double _value;
         private IScene<Cairo.Context> _scene;
-        private int frame = 0;
+        private int _frame;
     }
 }

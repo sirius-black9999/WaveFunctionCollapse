@@ -27,7 +27,7 @@ namespace WaveFunctionTest.MagicSystem
         [TestCase(5, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1)]
         //bbbbgbrg
         [TestCase(1, 2, 6, -1, -1, -1, -1, -1, -1, -1, -1)]
-        
+
         //maxed red
         [TestCase(7, 1, 0, 1, 1, 1, 1, 1, 1, -1, 1)]
         //maxed green

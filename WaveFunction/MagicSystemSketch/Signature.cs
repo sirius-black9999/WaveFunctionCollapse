@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Numerics;
 
 namespace WaveFunction.MagicSystemSketch
@@ -48,28 +47,28 @@ namespace WaveFunction.MagicSystemSketch
             //
             //we'll use:
 
-            float Ignis = Math.Clamp(Febris, 0, 1), //fire
-                Hydris = Math.Clamp(-Febris, 0, 1), // water
-                Tellus = Math.Clamp(Solidum, 0, 1), // earth
-                Aeolis = Math.Clamp(-Solidum, 0, 1), // air
-                Empyrus = Math.Clamp(Ordinem, 0, 1), // chaos
-                Vitrio = Math.Clamp(-Ordinem, 0, 1), // order
-                Luminus = Math.Clamp(Lumines, 0, 1), // light
-                Noctis = Math.Clamp(-Lumines, 0, 1), // dark
-                Spatius = Math.Clamp(Varias, 0, 1), // Space
-                Tempus = Math.Clamp(-Varias, 0, 1), // Time
-                Gravitas = Math.Clamp(Inertiae, 0, 1), // Heavy
-                Levitas = Math.Clamp(-Inertiae, 0, 1), // light
-                Auxillus = Math.Clamp(Subsidium, 0, 1), // Helpful
-                Malus = Math.Clamp(-Subsidium, 0, 1), // Harmful
-                Iuxta = Math.Clamp(Spatium, 0, 1), // Nearby
-                Disis = Math.Clamp(-Spatium, 0, 1); // Distant
+            float ignis = Math.Clamp(Febris, 0, 1), //fire
+                hydris = Math.Clamp(-Febris, 0, 1), // water
+                tellus = Math.Clamp(Solidum, 0, 1), // earth
+                aeolis = Math.Clamp(-Solidum, 0, 1), // air
+                empyrus = Math.Clamp(Ordinem, 0, 1), // chaos
+                vitrio = Math.Clamp(-Ordinem, 0, 1), // order
+                luminus = Math.Clamp(Lumines, 0, 1), // light
+                noctis = Math.Clamp(-Lumines, 0, 1), // dark
+                spatius = Math.Clamp(Varias, 0, 1), // Space
+                tempus = Math.Clamp(-Varias, 0, 1), // Time
+                gravitas = Math.Clamp(Inertiae, 0, 1), // Heavy
+                levitas = Math.Clamp(-Inertiae, 0, 1), // light
+                auxillus = Math.Clamp(Subsidium, 0, 1), // Helpful
+                malus = Math.Clamp(-Subsidium, 0, 1), // Harmful
+                iuxta = Math.Clamp(Spatium, 0, 1), // Nearby
+                disis = Math.Clamp(-Spatium, 0, 1); // Distant
 
             //rgrrrrgr
             //bbbbgbrg
-            return new Vector3((Ignis + Empyrus + Luminus + Spatius + Gravitas + Malus + Iuxta) / 7f,
-                (Tellus + Tempus + Auxillus + Disis) / 4f,
-                (Hydris + Aeolis + Vitrio + Noctis + Levitas) / 5f);
+            return new Vector3((ignis + empyrus + luminus + spatius + gravitas + malus + iuxta) / 7f,
+                (tellus + tempus + auxillus + disis) / 4f,
+                (hydris + aeolis + vitrio + noctis + levitas) / 5f);
         }
 
         public Signature MixedWith(Vector3 color, Element target)
@@ -90,8 +89,8 @@ namespace WaveFunction.MagicSystemSketch
             var index = (int)target;
             var compacted = Math.Tanh(input);
             var toInsert = (byte)((compacted + 1) * 127);
-            storage &= ~((ulong)0xff << (index * 8));
-            return storage | ((ulong)toInsert << (index * 8));
+            var temp = storage & ~((ulong)0xff << (index * 8));
+            return temp | ((ulong)toInsert << (index * 8));
         }
 
         private float Decode(Element target)

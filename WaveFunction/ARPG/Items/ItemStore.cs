@@ -1,4 +1,4 @@
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
     public static class ItemStore
     {

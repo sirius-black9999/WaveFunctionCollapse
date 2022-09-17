@@ -1,7 +1,8 @@
+using WaveFunction.ARPG.Chars;
 
-namespace WaveFunction.ARPG.Characters.Items
+namespace WaveFunction.ARPG.Items
 {
-    public interface IEquipment : ItemBase
+    public interface IEquipment : IItemBase
     {
         EquipSlots TargetSlot();
     }

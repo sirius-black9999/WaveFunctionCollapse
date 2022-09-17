@@ -1,17 +1,11 @@
-using System;
-using System.Linq;
-using FsCheck;
-using FsCheck.Fluent;
 using NUnit.Framework;
 using WaveFunction.MagicSystemSketch;
 using WaveFunctionTest.PropertyTesting.Generators;
-using WaveFunctionTest.PropertyTesting.Tooling;
 
 namespace WaveFunctionTest.PropertyTesting.MagicProperties
 {
     public class IncantationProperties
     {
-        
         [DatapointSource]
         public Incantation[] GenerateSpells()
         {
@@ -23,6 +17,7 @@ namespace WaveFunctionTest.PropertyTesting.MagicProperties
 
             return ret;
         }
+
         [DatapointSource]
         public Rune[] GenerateRunes()
         {
@@ -36,7 +31,9 @@ namespace WaveFunctionTest.PropertyTesting.MagicProperties
         }
 
         [Theory]
-        public void A_Spell_Made_From_An_Incantation_Has_Perfect_Stability_And_Neutrality_When_Cast_With_That_Incantation(Incantation i)
+        public void
+            A_Spell_Made_From_An_Incantation_Has_Perfect_Stability_And_Neutrality_When_Cast_With_That_Incantation(
+                Incantation i)
         {
             var s = new Spell("Testing", i);
             var stability = s.CastChance(i);
