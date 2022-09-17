@@ -5,21 +5,21 @@ namespace WaveFunction
 {
     public class BagEntry<T>
     {
-        public T value;
-        public double Weight;
-        public List<Action> OnPicked = new List<Action>();
+        public T Value { get; set; }
+        public double Weight { get; set; }
+        public List<Action> OnPicked { get; } = new List<Action>();
     }
 
     public class QuantumBag<T>
     {
         public QuantumBag()
         {
-            random = new BaseRng();
+            _random = new BaseRng();
         }
 
-        public QuantumBag(RNG rng)
+        public QuantumBag(IRng rng)
         {
-            random = rng;
+            _random = rng;
         }
 
         public BagLabel Add(T entry) => Add(entry, 1);
@@ -27,7 +27,7 @@ namespace WaveFunction
         public BagLabel Add(T entry, double weight)
         {
             var label = new BagLabel();
-            _entries.Add(label, new BagEntry<T>() { value = entry, Weight = weight });
+            _entries.Add(label, new BagEntry<T>() { Value = entry, Weight = weight });
             return label;
         }
 
@@ -36,6 +36,7 @@ namespace WaveFunction
 
         public int Count => _entries.Count;
         public double Entropy => _entries.Values.Entropy();
+
         public void Resize(BagLabel label, double i)
         {
             _entries[label].Weight = i;
@@ -43,11 +44,11 @@ namespace WaveFunction
 
         public double Weight(BagLabel label) => _entries[label].Weight;
 
-        private RNG random;
+        private readonly IRng _random;
 
         public T Get()
         {
-            var val = random.next();
+            var val = _random.Next();
             var weights = _entries.ToArray();
 
             var sum = _entries.Values.TotalWeight();
@@ -61,7 +62,7 @@ namespace WaveFunction
                         evt.Invoke();
                     }
 
-                    return _entries[wt.Key].value;
+                    return _entries[wt.Key].Value;
                 }
 
                 val -= wt.Value.Weight;

@@ -71,7 +71,7 @@ namespace WaveFunctionTest
         public void Retrieving_Item_Occurs_Via_RNG(int expected, double value)
         {
             //Arrange
-            RNG used = new P_RNG(value);
+            IRng used = new PRng(value);
             var bag = new QuantumBag<int>(used);
             bag.Add(1);
             bag.Add(2);
@@ -93,7 +93,7 @@ namespace WaveFunctionTest
         public void Weight_Affects_Breakpoints(int expected, double value, double weight)
         {
             //Arrange
-            RNG used = new P_RNG(value);
+            IRng used = new PRng(value);
             var bag = new QuantumBag<int>(used);
             bag.Add(1);
             bag.Add(2, weight);
@@ -115,7 +115,7 @@ namespace WaveFunctionTest
         public void Once_Picked_Bag_Will_Fire_Event_Associated_With_Entry()
         {
             //Arrange
-            RNG used = new P_RNG(0);
+            IRng used = new PRng(0);
             var bag = new QuantumBag<int>(used);
             var label1 = bag.Add(1);
             var label2 = bag.Add(2);

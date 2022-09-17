@@ -1,8 +1,8 @@
 
 namespace WaveFunction
 {
-    public interface RNG
+    public interface IRng
     {
-        double next();
+        double Next();
     }
 }

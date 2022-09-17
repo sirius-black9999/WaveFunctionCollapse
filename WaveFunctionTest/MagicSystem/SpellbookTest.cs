@@ -36,7 +36,7 @@ namespace WaveFunctionTest.MagicSystem
         public void Spellbook_Will_Cast_Spell_Based_On_Spell(double val, string expected)
         {
             //Arrange
-            P_RNG rng = new P_RNG(val);
+            PRng rng = new PRng(val);
             var book = new Spellbook(rng);
             book.AddSpell(new Spell("Fireball",
                     Aspect.Ignis, Aspect.Aeolis,

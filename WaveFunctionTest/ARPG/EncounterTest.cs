@@ -115,21 +115,21 @@ namespace WaveFunctionTest.ARPG
             Assert.That(action, Is.False);
             Assert.That(bonus, Is.False);
             Assert.That(movement, Is.False);
-            
+
             e.RunTurn();
-            
+
             Assert.That(action, Is.True);
             Assert.That(bonus, Is.False);
             Assert.That(movement, Is.False);
-            
+
             e.RunTurn();
-            
+
             Assert.That(action, Is.True);
             Assert.That(bonus, Is.True);
             Assert.That(movement, Is.False);
-            
+
             e.RunTurn();
-            
+
             Assert.That(action, Is.True);
             Assert.That(bonus, Is.True);
             Assert.That(movement, Is.True);
@@ -143,6 +143,7 @@ namespace WaveFunctionTest.ARPG
             //Arrange
             //Act
             //Assert
+            Assert.Warn("TODO");
         }
     }
 }

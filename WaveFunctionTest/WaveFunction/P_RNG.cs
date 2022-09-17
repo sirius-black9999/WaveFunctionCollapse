@@ -4,13 +4,13 @@ using WaveFunction;
 
 namespace WaveFunctionTest
 {
-    public class P_RNG : RNG
+    public class PRng : IRng
     {
-        public P_RNG(params double[] values)
+        public PRng(params double[] values)
         {
             _valueQueue = new Queue<double>(values);
         }
-        public double next() => _valueQueue.Dequeue();
+        public double Next() => _valueQueue.Dequeue();
         private readonly Queue<double> _valueQueue;
     }
 }

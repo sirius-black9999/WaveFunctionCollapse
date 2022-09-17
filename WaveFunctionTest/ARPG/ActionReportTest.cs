@@ -4,7 +4,7 @@ using WaveFunction.ARPG.Characters;
 
 namespace WaveFunctionTest.ARPG
 {
-    enum ActionType
+    public enum ActionType
     {
         Attack,
         Skill,
@@ -19,7 +19,7 @@ namespace WaveFunctionTest.ARPG
         GearSwap
     }
 
-    enum ActionTarget
+    public enum ActionTarget
     {
         Self,
         Ground,
@@ -29,9 +29,9 @@ namespace WaveFunctionTest.ARPG
 
     public class ActionReportTest
     {
-        private ActionType Chosen;
-        private ActionTarget target;
-        private Action<Character> PerformAction;
-        private Vector2 RelativeTarget;
+        public ActionType Chosen;
+        public ActionTarget target;
+        public Action<Character> PerformAction;
+        public Vector2 RelativeTarget;
     }
 }

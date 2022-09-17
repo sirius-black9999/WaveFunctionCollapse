@@ -1,8 +1,8 @@
 
 namespace WaveFunction.ARPG.Characters.Items
 {
-    public interface Equipment : ItemBase
+    public interface IEquipment : ItemBase
     {
-        EquipSlots targetSlot();
+        EquipSlots TargetSlot();
     }
 }

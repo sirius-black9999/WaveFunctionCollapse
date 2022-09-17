@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace WaveFunction.MagicSystemSketch
 {
-    public class Signature
+    public sealed class Signature
     {
         public Signature(float so, float fe, float or, float lu, float va, float @in, float su, float sp)
         {
@@ -17,6 +17,7 @@ namespace WaveFunction.MagicSystemSketch
             dat = Encode(dat, Element.Subsidium, su);
             _data = Encode(dat, Element.Spatium, sp);
         }
+
         public Signature(float[] elem) : this(elem[0], elem[1], elem[2], elem[3], elem[4], elem[5], elem[6], elem[7])
         {
         }
@@ -78,8 +79,8 @@ namespace WaveFunction.MagicSystemSketch
             var b = color.Z;
             var strength = -r + b;
             strength += g * Math.Sign(strength);
-            ulong temp = _data;
-            return new Signature(Encode(temp, target, strength));
+            var temp = _data;
+            return new Signature(Encode(temp, target, strength + this[target]));
         }
 
         private readonly ulong _data;
@@ -104,10 +105,11 @@ namespace WaveFunction.MagicSystemSketch
         {
             var other = obj as Signature;
             if (other == null) return false;
+
             return Equals(other);
         }
 
-        protected bool Equals(Signature other) =>
+        private bool Equals(Signature other) =>
             Math.Abs(Solidum - other.Solidum) < 0.1 &&
             Math.Abs(Febris - other.Febris) < 0.1 &&
             Math.Abs(Ordinem - other.Ordinem) < 0.1 &&

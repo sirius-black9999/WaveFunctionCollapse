@@ -18,10 +18,10 @@ namespace WaveFunction.Voronoi
             get
             {
                 var locus = _pts[0];
-                var dist = _length(locus.position, tested);
+                var dist = _length(locus.Position, tested);
                 for (int i = 1; i < _pts.Length; i++)
                 {
-                    var newDist = _length(_pts[i].position, tested);
+                    var newDist = _length(_pts[i].Position, tested);
                     if (newDist < dist)
                     {
                         locus = _pts[i];
@@ -29,12 +29,12 @@ namespace WaveFunction.Voronoi
                     }
                 }
 
-                return locus.effect;
+                return locus.Effect;
             }
         }
 
         public int Points => _pts.Length;
         private readonly Func<Vector2, Vector2, float> _length;
-        private Locus[] _pts;
+        private readonly Locus[] _pts;
     }
 }

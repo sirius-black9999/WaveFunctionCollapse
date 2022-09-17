@@ -53,10 +53,10 @@ namespace WaveFunction.ARPG.Battle
             }
         }
 
-        public BattleMapMaker Randomized(RNG rng)
+        public BattleMapMaker Randomized(IRng rng)
         {
             Size.Foreach(pos =>
-                Tiles[Size.IndexOf(pos)].SetCol(rng.next(), rng.next(), rng.next()));
+                Tiles[Size.IndexOf(pos)].SetCol(rng.Next(), rng.Next(), rng.Next()));
             return this;
         }
 

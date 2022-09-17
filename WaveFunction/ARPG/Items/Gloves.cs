@@ -1,13 +1,13 @@
 
 namespace WaveFunction.ARPG.Characters.Items
 {
-    public class Gloves : Equipment
+    public class Gloves : IEquipment
     {
         public Gloves(GlovesMaker maker)
         {
         }
 
-        public EquipSlots targetSlot() => EquipSlots.Head;
+        public EquipSlots TargetSlot() => EquipSlots.Head;
     }
 
     public class GlovesMaker

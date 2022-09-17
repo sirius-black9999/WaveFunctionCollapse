@@ -13,11 +13,12 @@ namespace SpellCasting
             DrawCursor(cr, size);
             DrawWheel(cr, size);
         }
+
         private Vector2 _size;
 
         private void DrawWheel(Context cr, Vector2 size)
         {
-            SpellWheel.Draw(cr, size, Depth(), currentRune);
+            SpellWheel.Draw(cr, size, Depth(), _currentRune);
         }
 
         private void DrawCursor(Context cr, Vector2 size)
@@ -34,10 +35,10 @@ namespace SpellCasting
             cr.Arc(pos.X, pos.Y, 10, 0, 2 * Math.PI);
             cr.Fill();
 
-            for (var index = 1; index < positions.Count; index++)
+            for (var index = 1; index < _positions.Count; index++)
             {
-                var start = positions[index - 1];
-                var end = positions[index];
+                var start = _positions[index - 1];
+                var end = _positions[index];
                 cr.LineWidth = 1;
                 cr.SetSourceRGB(Math.Clamp(-start.Z, 0, 1), Math.Clamp(start.Z, 0, 1), 1 - Math.Abs(start.Z));
                 cr.MoveTo(start.X, start.Y);
@@ -48,28 +49,27 @@ namespace SpellCasting
         }
 
 
-        public void Update(int frameCount, Vector2 mousePos)
+        public void Update(int frameCount, Vector2 pos)
         {
             if (IsPressed())
             {
-                var pos = GetMousePos();
                 var depth = Depth();
 
-                positions.Add(new Vector3(pos.X, pos.Y, (float)depth));
-                SpellWheel.Overlaps(currentRune, pos, _size, Depth());
+                _positions.Add(new Vector3(pos.X, pos.Y, (float)depth));
+                SpellWheel.Overlaps(_currentRune, pos, _size, Depth());
             }
             else
             {
-                if (positions.Any())
+                if (_positions.Any())
                 {
-                    if (currentRune.Any)
+                    if (_currentRune.Any)
                     {
-                        casting.Inscribe(currentRune.Resolve());
-                        currentRune = new Gesture();
+                        _casting.Inscribe(_currentRune.Resolve());
+                        _currentRune = new Gesture();
                     }
-                    else if (casting.Any)
+                    else if (_casting.Any)
                     {
-                        var cast = book.Cast(casting);
+                        var cast = _book.Cast(_casting);
                         Console.WriteLine($"\nCasting {cast.Name}\n" +
                                           $"Hardness: {cast.Hardness}\t Heat: {cast.Heat}\n" +
                                           $"Entropy: {cast.Entropy}\t" +
@@ -79,36 +79,40 @@ namespace SpellCasting
                                           $"Risk: {cast.Risk}\t" +
                                           $"Range: {cast.Range}\n" +
                                           $"Stability: {cast.Stability}");
-                        casting = new Incantation();
+                        _casting = new Incantation();
                     }
                 }
 
-                positions.Clear();
+                _positions.Clear();
             }
         }
 
         public void MouseClick(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseRelease(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseDrag(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseScroll(bool up)
         {
+            //Unused
         }
 
-        private Spellbook book = Bookmaker.NewBook();
-        private Incantation casting = new Incantation();
-        private Gesture currentRune = new Gesture();
-        private List<Vector3> positions = new List<Vector3>();
-        public Func<Vector2> GetMousePos;
-        public Func<bool> IsPressed;
-        public Func<double> Depth;
+        private readonly Spellbook _book = Bookmaker.NewBook();
+        private Incantation _casting = new Incantation();
+        private Gesture _currentRune = new Gesture();
+        private readonly List<Vector3> _positions = new List<Vector3>();
+        public Func<Vector2> GetMousePos { get; set; } = () => new Vector2();
+        public Func<bool> IsPressed { get; set; } = () => false;
+        public Func<double> Depth { get; set; } = () => 0;
     }
 }

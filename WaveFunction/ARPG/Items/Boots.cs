@@ -1,13 +1,13 @@
 
 namespace WaveFunction.ARPG.Characters.Items
 {
-    public class Boots : Equipment
+    public class Boots : IEquipment
     {
         public Boots(BootsMaker maker)
         {
         }
     
-        public EquipSlots targetSlot() => EquipSlots.Head;
+        public EquipSlots TargetSlot() => EquipSlots.Head;
     }
 
     public class BootsMaker

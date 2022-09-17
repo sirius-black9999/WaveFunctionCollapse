@@ -120,7 +120,8 @@ namespace TilemapBuilder
 
         private static void TestImage(Image<Argb32> image, Action<Argb32[]> testFunc)
         {
-            Argb32[] pixels = new Argb32[(int)(tileSize.X * tileSize.Y)];
+            
+            var pixels = new Argb32[(int)(tileSize.X * tileSize.Y)];
             for (int y = 0; y < 4096; y += 8)
             {
                 for (int x = 0; x < 4096; x += 8)

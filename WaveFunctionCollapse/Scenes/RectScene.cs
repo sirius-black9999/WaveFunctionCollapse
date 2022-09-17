@@ -1,4 +1,3 @@
-
 using System.Numerics;
 
 namespace WaveFunctionCollapse.Scenes
@@ -10,7 +9,7 @@ namespace WaveFunctionCollapse.Scenes
             cr.SetSourceRGB(0.2, 0.23, 0.9);
             cr.Rectangle(10, 15, 90, 60);
             cr.Fill();
-         
+
             cr.SetSourceRGB(0.9, 0.1, 0.1);
             cr.Rectangle(130, 15, 90, 60);
             cr.Fill();
@@ -20,24 +19,29 @@ namespace WaveFunctionCollapse.Scenes
             cr.Fill();
         }
 
-        public void Update(int frameCount,Vector2 pos)
+        public void Update(int frameCount, Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseClick(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseRelease(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseDrag(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseScroll(bool up)
         {
+            //Unused
         }
     }
 }

@@ -1,13 +1,13 @@
 
 namespace WaveFunction.ARPG.Characters.Items
 {
-    public class Jewel : Equipment
+    public class Jewel : IEquipment
     {
         public Jewel(JewelMaker maker)
         {
         }
 
-        public EquipSlots targetSlot() => EquipSlots.Head;
+        public EquipSlots TargetSlot() => EquipSlots.Head;
     }
 
     public class JewelMaker

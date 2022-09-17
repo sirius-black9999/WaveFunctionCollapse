@@ -2,13 +2,13 @@
 namespace WaveFunction.ARPG.Characters.Items
 {
     
-    public class Helmet : Equipment
+    public class Helmet : IEquipment
     {
         public Helmet(HelmetMaker maker)
         {
         }
 
-        public EquipSlots targetSlot() => EquipSlots.Head;
+        public EquipSlots TargetSlot() => EquipSlots.Head;
     }
 
     public class HelmetMaker

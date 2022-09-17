@@ -1,13 +1,13 @@
 
 namespace WaveFunction.ARPG.Characters.Items
 {
-    public class Ring : Equipment
+    public class Ring : IEquipment
     {
         public Ring(RingMaker maker)
         {
         }
 
-        public EquipSlots targetSlot() => EquipSlots.Head;
+        public EquipSlots TargetSlot() => EquipSlots.Head;
     }
 
     public class RingMaker

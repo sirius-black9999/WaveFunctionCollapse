@@ -53,7 +53,10 @@ namespace WaveFunctionTest.MagicSystem
         [Test]
         public void An_Incantation_May_Be_Inversed()
         {
-            
+            //Arrange
+            //Act
+            //Assert
+            Assert.Warn("NOT IMPLEMENTED");
         }
     }
 }

@@ -17,13 +17,13 @@ namespace WaveFunctionTest.VoronoiTest
             var v = new Voronoi(LengthFuncs.EuclideanDistanceSqr,
                 new Locus()
                 {
-                    position = new Vector2(1, 1),
-                    effect = new Signature(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 })
+                    Position = new Vector2(1, 1),
+                    Effect = new Signature(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 })
                 },
                 new Locus()
                 {
-                    position = new Vector2(2, 2),
-                    effect = new Signature(new float[] { 1, 1, 1, 1, 1, 1, 1, 1 })
+                    Position = new Vector2(2, 2),
+                    Effect = new Signature(new float[] { 1, 1, 1, 1, 1, 1, 1, 1 })
                 });
             //Act
             var result = v.Points;

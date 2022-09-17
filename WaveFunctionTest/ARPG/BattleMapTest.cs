@@ -10,9 +10,9 @@ using WaveFunctionTest.PropertyTesting.Tooling;
 
 namespace WaveFunctionTest.ARPG
 {
-    class SeqRng : RNG
+    class SeqRng : IRng
     {
-        public double next() => i++;
+        public double Next() => i++;
         private int i;
     }
     public class BattleMapTest

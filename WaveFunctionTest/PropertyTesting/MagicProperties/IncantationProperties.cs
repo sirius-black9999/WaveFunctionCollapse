@@ -51,21 +51,5 @@ namespace WaveFunctionTest.PropertyTesting.MagicProperties
             Assert.That(cast.Range, Is.EqualTo(0));
             Assert.That(stability, Is.EqualTo(1));
         }
-        [Theory]
-        public void The_Order_Of_Runes_In_An_Incantation_Does_Not_Matter(Incantation i)
-        {
-            var s = new Spell("Testing", i);
-            var stability = s.CastChance(i);
-            var cast = s.CastWith(i);
-            Assert.That(cast.Hardness, Is.EqualTo(0));
-            Assert.That(cast.Heat, Is.EqualTo(0));
-            Assert.That(cast.Entropy, Is.EqualTo(0));
-            Assert.That(cast.Luminance, Is.EqualTo(0));
-            Assert.That(cast.Manifold, Is.EqualTo(0));
-            Assert.That(cast.Density, Is.EqualTo(0));
-            Assert.That(cast.Risk, Is.EqualTo(0));
-            Assert.That(cast.Range, Is.EqualTo(0));
-            Assert.That(stability, Is.EqualTo(1));
-        }
     }
 }

@@ -1,9 +1,9 @@
 
 namespace WaveFunction.WaveFunc
 {
-    public class BaseRng : RNG
+    public class BaseRng : IRng
     {
-        public double next() => _r.NextDouble();
+        public double Next() => _r.NextDouble();
         private readonly Random _r = new Random();
     }
 }

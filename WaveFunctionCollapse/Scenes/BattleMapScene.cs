@@ -24,24 +24,29 @@ namespace WaveFunctionCollapse.Scenes
             cr.Fill();
         }
 
-        public void Update(int frameCount, Vector2 mousePos)
+        public void Update(int frameCount, Vector2 pos)
         {
+            //unused
         }
 
         public void MouseClick(Vector2 pos)
         {
+            //unused
         }
 
         public void MouseRelease(Vector2 pos)
         {
+            //unused
         }
 
         public void MouseDrag(Vector2 pos)
         {
+            //unused
         }
 
         public void MouseScroll(bool up)
         {
+            //unused
         }
     }
 }

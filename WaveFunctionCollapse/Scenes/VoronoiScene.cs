@@ -11,52 +11,57 @@ namespace WaveFunctionCollapse.Scenes
 {
     public class VoronoiScene : IScene<Context>
     {
-        private static RNG rand = new BaseRng();
+        private static readonly IRng Rand = new BaseRng();
 
-        private static Locus[] points => Generator<Locus>.Make(15, rand, rng =>
+        private static Locus[] Points => Generator<Locus>.Make(15, Rand, static rng =>
         {
             return new Locus()
             {
-                position = new Vector2((float)(rand.next() * 256), (float)(rand.next() * 256)),
-                effect = new Signature(Generator<float>.Make(8, rand, rand => (float)rand.next()*2-1))
+                Position = new Vector2((float)(Rand.Next() * 256), (float)(Rand.Next() * 256)),
+                Effect = new Signature(Generator<float>.Make(8, Rand, static rand => (float)rand.Next() * 2 - 1))
             };
         });
 
-        private Voronoi v = new Voronoi(LengthFuncs.ManhattanDistance, points);
+        private readonly Voronoi _v = new Voronoi(LengthFuncs.ManhattanDistance, Points);
 
-        private Vector2 gridSize = new Vector2(256, 256);
+        private readonly Vector2 _gridSize = new Vector2(256, 256);
 
         public void Render(Context cr, Vector2 size)
         {
-            gridSize.Foreach(RenderTile, cr);
+            _gridSize.Foreach(RenderTile, cr);
         }
 
         private void RenderTile(Vector2 pos, Context cr)
         {
-            var col = v[pos].Color;
+            var col = _v[pos].Color;
             cr.SetSourceRGB(col.X, col.Y, col.Z);
             cr.Rectangle(pos.X * 2, pos.Y * 2, 2, 2);
             cr.Fill();
         }
 
-        public void Update(int frameCount, Vector2 mousePos)
+        public void Update(int frameCount, Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseClick(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseRelease(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseDrag(Vector2 pos)
         {
+            //Unused
         }
 
         public void MouseScroll(bool up)
         {
+            //Unused
         }
     }
 }

@@ -8,14 +8,14 @@ namespace WaveFunction.ARPG.Battle
         public static Dictionary<TurnPhase, Action<Encounter>> TurnOrder =>
             new Dictionary<TurnPhase, Action<Encounter>>()
             {
-                { TurnPhase.Action, (enc) => enc.currentPhase = TurnPhase.BonusAction },
-                { TurnPhase.BonusAction, (enc) => enc.currentPhase = TurnPhase.Movement },
+                { TurnPhase.Action, (enc) => enc.CurrentPhase = TurnPhase.BonusAction },
+                { TurnPhase.BonusAction, (enc) => enc.CurrentPhase = TurnPhase.Movement },
                 {
                     TurnPhase.Movement, (enc) =>
                     {
-                        enc.currentPlayer++;
-                        enc.currentPlayer %= enc._chars.Length;
-                        enc.currentPhase = TurnPhase.Action;
+                        enc.CurrentPlayerIndex++;
+                        enc.CurrentPlayerIndex %= enc.Combatants;
+                        enc.CurrentPhase = TurnPhase.Action;
                     }
                 }
             };

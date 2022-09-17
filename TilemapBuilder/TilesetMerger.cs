@@ -4,28 +4,15 @@ using SixLabors.ImageSharp.Processing;
 
 namespace TilemapBuilder
 {
-    public class TilesetMerger
+    public static class TilesetMerger
     {
-        static byte[] pixels = new byte[4096 * 4096 * 4];
-
-
-        static double entropy(Argb32[] entries, Func<Argb32, double> fn)
-        {
-            return entries.Sum(entry =>
-            {
-                var val = fn(entry);
-                if (val == 0)
-                    return 0;
-
-                return -val * Math.Log2(val);
-            });
-        }
+        private static readonly byte[] Pixels = new byte[4096 * 4096 * 4];
 
         public static void Run()
         {
             var fileList = Directory.GetFiles("../../../../Assets/MapOut");
             Console.WriteLine(fileList.Length);
-            var resultImg = Image.LoadPixelData<Argb32>(pixels, 4096, 4096);
+            var resultImg = Image.LoadPixelData<Argb32>(Pixels, 4096, 4096);
             var pt = new Point(0, 0);
             foreach (var img in fileList.Where(s => s.EndsWith(".png")))
             {
@@ -41,10 +28,7 @@ namespace TilemapBuilder
                 }
 
                 if (imgPix.Min(argb32 => argb32.A) > 254 || imgPix.Max(argb32 => argb32.A) == 0) continue;
-                // if (entropy(imgPix, x => x.R) < 0.01 &&
-                //     entropy(imgPix, x => x.G) < 0.01 &&
-                //     entropy(imgPix, x => x.B) < 0.01) continue;
-                
+
                 resultImg.Mutate(target => target.DrawImage(image, pt, 1));
                 pt.X += 8;
                 if (pt.X == 4096)

@@ -80,7 +80,6 @@ namespace SpellCasting
             var cr = Gdk.CairoHelper.Create(area.Window);
             var size = new Vector2(Allocation.Width, Allocation.Height);
 
-            var pos = mousePos();
             _scene.Render(cr, size);
             ((IDisposable)cr.GetTarget()).Dispose();
             ((IDisposable)cr).Dispose();

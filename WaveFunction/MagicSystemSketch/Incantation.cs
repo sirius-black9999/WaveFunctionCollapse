@@ -5,20 +5,20 @@ namespace WaveFunction.MagicSystemSketch
     {
         public Incantation Inscribe(Rune resolve)
         {
-            runes.Add(resolve);
+            _runes.Add(resolve);
             return this;
         }
         public Incantation Inscribe(Rune[] resolve)
                  {
-                     runes.AddRange(resolve);
+                     _runes.AddRange(resolve);
                      return this;
                  }
 
-        private List<Rune> runes = new List<Rune>();
-        public bool Any => runes.Any();
+        private readonly List<Rune> _runes = new List<Rune>();
+        public bool Any => _runes.Any();
         public double Element(Element ele)
         {
-            return runes.Sum(rune => rune.PushForce(ele));
+            return _runes.Sum(rune => rune.PushForce(ele));
         }
     }
 }

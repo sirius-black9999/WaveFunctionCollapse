@@ -49,9 +49,6 @@ namespace WaveFunctionEditor
             scenePicker.Changed += ScenePickerOnChanged;
             grid.Add(scenePicker);
             
-            var TilePicker = new ComboBox(new[] {"SourceImage", "Render", "Passability"});
-            scenePicker.Changed += ScenePickerOnChanged;
-            
             ShowAll();
         }
 

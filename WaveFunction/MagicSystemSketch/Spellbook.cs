@@ -9,7 +9,7 @@ namespace WaveFunction.MagicSystemSketch
             _rand = new BaseRng();
         }
 
-        public Spellbook(RNG rand)
+        public Spellbook(IRng rand)
         {
             _rand = rand;
         }
@@ -33,6 +33,6 @@ namespace WaveFunction.MagicSystemSketch
             return options.Get().CastWith(phrase);
         }
 
-        private RNG _rand;
+        private readonly IRng _rand;
     }
 }

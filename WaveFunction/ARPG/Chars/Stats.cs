@@ -74,7 +74,7 @@ namespace WaveFunction.ARPG.Characters
         public static bool IsDmgStat(this Stat s) => Enum.GetValues<DamageStats>().Any(stats => s == (Stat)stats);
         public static bool IsCharStat(this Stat s) => Enum.GetValues<CharacterStats>().Any(stats => s == (Stat)stats);
 
-        public static Dictionary<EquipSlots, Equipment> Defaults => new Dictionary<EquipSlots, Equipment>()
+        public static Dictionary<EquipSlots, IEquipment> Defaults => new Dictionary<EquipSlots, IEquipment>()
         {
             { EquipSlots.Head, ItemStore.Helm.Done },
             { EquipSlots.Chest, ItemStore.Chest.Done },

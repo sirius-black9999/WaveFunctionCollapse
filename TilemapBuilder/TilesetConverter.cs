@@ -29,7 +29,6 @@ namespace TilemapBuilder
             files.AddRange(Directory.GetFiles("../../../../Assets/MapSrc"));
             Console.WriteLine($"Found {files.Count} files");
             Console.WriteLine($"Found {files.Count(s => s.EndsWith(".png"))} png files");
-            var i = 0;
             foreach (var img in files.Where(s => s.EndsWith(".png")))
             {
                 using var image = Image.Load(img);
@@ -37,7 +36,7 @@ namespace TilemapBuilder
                 image.Mutate(x => x
                     .Resize(8, 8));
 
-                image.Save($"../../../../Assets/MapOut/Image {TilesetSplitter.counter++}.png");
+                image.Save($"../../../../Assets/MapOut/Image {TilesetSplitter.Counter++}.png");
             }
         }
     }

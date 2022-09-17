@@ -14,11 +14,11 @@ namespace SpellCasting
             Negative
         }
 
-        private Vector3 _highCol;
-        private Vector3 _midCol;
-        private Vector3 _lowCol;
-        private List<Tuple<Vector2, Vector2>> _linesPos = new List<Tuple<Vector2, Vector2>>();
-        private List<Tuple<Vector2, Vector2>> _linesNeg = new List<Tuple<Vector2, Vector2>>();
+        private readonly Vector3 _highCol;
+        private readonly Vector3 _midCol;
+        private readonly Vector3 _lowCol;
+        private readonly List<Tuple<Vector2, Vector2>> _linesPos;
+        private readonly List<Tuple<Vector2, Vector2>> _linesNeg;
 
         public Glyph(GlyphMaker maker)
         {
@@ -39,6 +39,7 @@ namespace SpellCasting
                 col = Vector3.Lerp(_midCol, _highCol, depth);
                 lines = _linesPos;
             }
+
             if (depth < 0)
                 col = Vector3.Lerp(_midCol, _lowCol, -depth);
 
@@ -53,27 +54,21 @@ namespace SpellCasting
             }
         }
 
-        public static GlyphMaker Make()
-        {
-            return new GlyphMaker();
-        }
+        public static GlyphMaker Make() => new GlyphMaker();
     }
 
     public class GlyphMaker
     {
-        public Glyph Finish()
-        {
-            return new Glyph(this);
-        }
+        public Glyph Finish() => new Glyph(this);
 
-        public GlyphMaker WithColor(Vector3 color, Glyph.Position At)
+        public GlyphMaker WithColor(Vector3 color, Glyph.Position at)
         {
             new Dictionary<Glyph.Position, Action<Vector3>>()
             {
                 { Glyph.Position.Positive, col => HighCol = col },
                 { Glyph.Position.Neutral, col => MidCol = col },
                 { Glyph.Position.Negative, col => LowCol = col },
-            }[At](color);
+            }[at](color);
             return this;
         }
 

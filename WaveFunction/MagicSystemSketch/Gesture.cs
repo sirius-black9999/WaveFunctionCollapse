@@ -22,7 +22,7 @@ namespace WaveFunction.MagicSystemSketch
 
         public Rune Resolve() => new Rune(this);
 
-        public Dictionary<Aspect, double> Aspects = new Dictionary<Aspect, double>();
+        public Dictionary<Aspect, double> Aspects { get; } = new Dictionary<Aspect, double>();
 
         public bool Any => Aspects.Any();
     }

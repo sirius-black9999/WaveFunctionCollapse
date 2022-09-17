@@ -4,7 +4,7 @@ namespace WaveFunction.ARPG.Characters.Battle
 {
     public class Encounter
     {
-        public Pawn[] _chars;
+        
 
         public Encounter(params Character[] chars)
         {
@@ -13,13 +13,16 @@ namespace WaveFunction.ARPG.Characters.Battle
         public void RunTurn()
         {
             Turn++;
-            CurrentPlayer.PerformTurnPhase(currentPhase);
-            CombatConstants.TurnOrder[currentPhase](this);
+            CurrentPlayer.PerformTurnPhase(CurrentPhase);
+            CombatConstants.TurnOrder[CurrentPhase](this);
         }
         
         public int Turn { get; private set; }
-        public int currentPlayer;
-        public TurnPhase currentPhase;
-        private Pawn CurrentPlayer => _chars[currentPlayer];
+        public int CurrentPlayerIndex { get; set; }
+        public TurnPhase CurrentPhase { get; set; }
+
+        public int Combatants => _chars.Length;
+        private readonly Pawn[] _chars;
+        private Pawn CurrentPlayer => _chars[CurrentPlayerIndex];
     }
 }

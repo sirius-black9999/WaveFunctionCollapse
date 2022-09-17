@@ -1,10 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Gtk;
-using SpellCasting;
-using WaveFunctionCollapse;
 
+namespace SpellCasting;
 
-Application.Init();
-new MainForm();
-Application.Run();
+internal static class Program
+{
+    public static void Main(string[] args)
+    {
+        Application.Init();
+        new MainForm(); //NOSONAR
+
+        Application.Run();
+    }
+}

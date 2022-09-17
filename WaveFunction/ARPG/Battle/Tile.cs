@@ -2,29 +2,13 @@ using System.Numerics;
 
 namespace WaveFunction.ARPG.Battle
 {
-    [Flags]
-    public enum NavDir
-    {
-        Central = 0x0000b,
-        
-        North = 0x0001b,
-        South = 0x0010b,
-        East = 0x0100b,
-        West = 0x1000b,
-
-        NorthEast = 0x0101b,
-        NorthWest = 0x1001b,
-        SouthEast = 0x0110b,
-        SouthWest = 0x1010b
-    }
-
     public class Tile
     {
         public static TileMaker Make => new TileMaker();
 
         public Tile(TileMaker m)
         {
-            _passable = m.passable;
+            _passable = m.Passable;
         }
 
         public bool MayPass => _passable;
@@ -42,16 +26,16 @@ namespace WaveFunction.ARPG.Battle
     {
         public TileMaker()
         {
-            passable = false;
+            Passable = false;
         }
 
-        public TileMaker CanPass(bool MayPass)
+        public TileMaker CanPass(bool mayPass)
         {
-            passable = MayPass;
+            Passable = mayPass;
             return this;
         }
 
         public Tile Result => new Tile(this);
-        public bool passable;
+        public bool Passable { get; set; }
     }
 }

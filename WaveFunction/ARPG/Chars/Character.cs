@@ -27,7 +27,6 @@ namespace WaveFunction.ARPG.Characters
         }
 
         public Character CharBase { get; }
-        private Vector2 position;
 
         public ActionReport PerformTurnPhase(TurnPhase currentPhase) => CharBase.PerformTurnPhase(currentPhase);
     }
@@ -62,7 +61,7 @@ namespace WaveFunction.ARPG.Characters
             _baseStats[StatUtil.CharacterStats.HealthCurrent] = () => newValue;
         }
 
-        public Character WithEquipment(Equipment item)
+        public Character WithEquipment(IEquipment item)
         {
             var builder = new CharacterBuilder(_baseStats, _equipment);
             foreach (var value in Enum.GetValues<EquipSlots>())
@@ -70,14 +69,14 @@ namespace WaveFunction.ARPG.Characters
                 builder.WearingItem(value, _equipment[value]);
             }
 
-            builder.WearingItem(item.targetSlot(), item);
+            builder.WearingItem(item.TargetSlot(), item);
             return builder.Result;
         }
 
         public double this[StatUtil.CharacterStats name] => _baseStats[name]();
         private readonly Dictionary<StatUtil.CharacterStats, Func<double>> _baseStats;
 
-        private Dictionary<EquipSlots, ItemBase> _equipment;
+        private readonly Dictionary<EquipSlots, ItemBase> _equipment;
     }
 
 

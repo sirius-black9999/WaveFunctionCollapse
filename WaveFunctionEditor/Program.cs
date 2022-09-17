@@ -2,8 +2,16 @@
 
 
 using Gtk;
-using WaveFunctionEditor;
 
-Application.Init();
-new MainForm();
-Application.Run();
+namespace WaveFunctionEditor;
+
+internal static class Program
+{
+    public static void Main(string[] args)
+    {
+        Application.Init();
+        new MainForm(); //NOSONAR
+
+        Application.Run();
+    }
+}
