@@ -18,7 +18,7 @@ namespace WaveFunctionCollapse.Scenes
             return new Locus()
             {
                 position = new Vector2((float)(rand.next() * 256), (float)(rand.next() * 256)),
-                effect = new Signature(Generator<float>.Make(8, rand, rand => (float)rand.next()))
+                effect = new Signature(Generator<float>.Make(8, rand, rand => (float)rand.next()*2-1))
             };
         });
 
@@ -33,10 +33,8 @@ namespace WaveFunctionCollapse.Scenes
 
         private void RenderTile(Vector2 pos, Context cr)
         {
-            var red = v[pos].Solidum;
-            var green = v[pos].Febris;
-            var blue = v[pos][Element.Ordinem];
-            cr.SetSourceRGB(red, green, blue);
+            var col = v[pos].Color;
+            cr.SetSourceRGB(col.X, col.Y, col.Z);
             cr.Rectangle(pos.X * 2, pos.Y * 2, 2, 2);
             cr.Fill();
         }

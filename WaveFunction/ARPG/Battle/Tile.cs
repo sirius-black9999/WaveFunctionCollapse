@@ -3,17 +3,19 @@ using System.Numerics;
 namespace WaveFunction.ARPG.Battle
 {
     [Flags]
-    public enum Direction
+    public enum NavDir
     {
-        Left = 0x0001b,
-        Right = 0x0010b,
-        Up = 0x0100b,
-        Down = 0x1000b,
+        Central = 0x0000b,
+        
+        North = 0x0001b,
+        South = 0x0010b,
+        East = 0x0100b,
+        West = 0x1000b,
 
-        UpLeft = 0x0101b,
-        UpRight = 0x0110b,
-        DownLeft = 0x1001b,
-        DownRight = 0x1010b
+        NorthEast = 0x0101b,
+        NorthWest = 0x1001b,
+        SouthEast = 0x0110b,
+        SouthWest = 0x1010b
     }
 
     public class Tile
@@ -38,7 +40,6 @@ namespace WaveFunction.ARPG.Battle
 
     public class TileMaker
     {
-        private static readonly Direction[] dirs = Enum.GetValues<Direction>();
         public TileMaker()
         {
             passable = false;

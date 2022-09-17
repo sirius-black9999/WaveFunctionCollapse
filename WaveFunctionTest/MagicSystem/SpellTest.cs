@@ -23,7 +23,7 @@ namespace WaveFunctionTest.MagicSystem
             cast.Inscribe(
                 new Gesture()
                     .Record(Aspect.Disis)
-                    .Record(Aspect.Spatium)
+                    .Record(Aspect.Spatius)
                     .Resolve());
             //Act
             var result = spell.CastChance(cast);
@@ -155,7 +155,7 @@ namespace WaveFunctionTest.MagicSystem
             Phrase.Inscribe(
                 new Gesture()
                     .Record(Aspect.Iuxta, 999)
-                    .Record(Aspect.Spatium, 999)
+                    .Record(Aspect.Spatius, 999)
                     .Resolve());
             //Act
             var result = spell.CastChance(Phrase);

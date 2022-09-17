@@ -17,7 +17,7 @@ namespace WaveFunctionTest.ARPG
     }
     public class BattleMapTest
     {
-        [DatapointSource] private Direction[] allStat => Enum.GetValues<Direction>();
+        [DatapointSource] private NavDir[] allStat => Enum.GetValues<NavDir>();
 
         [DatapointSource] private int[] Directions => Generator<int>.Make(3, randomizer => randomizer.Next(0, 256));
 

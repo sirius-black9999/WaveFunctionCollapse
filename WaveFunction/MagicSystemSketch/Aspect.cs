@@ -10,7 +10,7 @@ namespace WaveFunction.MagicSystemSketch
         Vitrio, // order
         Luminus, // light
         Noctis, // dark
-        Spatium, // Space
+        Spatius, // Space
         Tempus, // Time
         Gravitas, // Heavy
         Levitas, // light
@@ -42,7 +42,7 @@ namespace WaveFunction.MagicSystemSketch
                 { Element.Febris, Aspect.Ignis },
                 { Element.Ordinem, Aspect.Vitrio },
                 { Element.Lumines, Aspect.Luminus },
-                { Element.Varias, Aspect.Spatium },
+                { Element.Varias, Aspect.Spatius },
                 { Element.Inertiae, Aspect.Gravitas },
                 { Element.Subsidium, Aspect.Auxillus },
                 { Element.Spatium, Aspect.Disis }
@@ -83,7 +83,7 @@ namespace WaveFunction.MagicSystemSketch
                 { Aspect.Ignis,Element.Febris },
                 { Aspect.Vitrio,Element.Ordinem },
                 { Aspect.Luminus,Element.Lumines },
-                { Aspect.Spatium,Element.Varias },
+                { Aspect.Spatius,Element.Varias },
                 { Aspect.Gravitas,Element.Inertiae },
                 { Aspect.Auxillus,Element.Subsidium },
                 { Aspect.Disis,Element.Spatium }

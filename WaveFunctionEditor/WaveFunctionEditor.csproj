@@ -11,4 +11,9 @@
       <ProjectReference Include="..\WaveFunction\WaveFunction.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="CairoSharp" Version="3.24.24.38" />
+      <PackageReference Include="GtkSharp" Version="3.24.24.38" />
+    </ItemGroup>
+
 </Project>
