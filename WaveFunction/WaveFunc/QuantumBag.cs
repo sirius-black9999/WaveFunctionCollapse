@@ -46,6 +46,7 @@ namespace WaveFunction.WaveFunc
 
         private readonly IRng _random;
 
+
         public T Get()
         {
             var val = _random.Next();
@@ -62,7 +63,10 @@ namespace WaveFunction.WaveFunc
                         evt.Invoke();
                     }
 
-                    return _entries[wt.Key].Value;
+                    var ret = _entries[wt.Key].Value;
+                    if (Erasing)
+                        _entries.Remove(wt.Key);
+                    return ret;
                 }
 
                 val -= wt.Value.Weight;
@@ -70,6 +74,8 @@ namespace WaveFunction.WaveFunc
 
             throw new InvalidOperationException("Bag is empty");
         }
+
+        public bool Erasing { get; set; }
 
         public void Entangle(BagLabel label, Action action)
         {

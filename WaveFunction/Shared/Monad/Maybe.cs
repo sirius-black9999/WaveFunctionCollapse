@@ -23,7 +23,8 @@ namespace WaveFunction.Shared.Monad
         {
             try
             {
-                _result = _trans(i, this);
+                _memory = i;
+                _result = _trans(_memory, this);
             }
             catch (Exception e)
             {
@@ -52,20 +53,34 @@ namespace WaveFunction.Shared.Monad
         }
 
 
-        Func<TIn, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TIn, T_New> transformation)
-        {
-            return (test, _) => transformation(test);
-        }
-
-        Func<TOut, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TOut, T_New> transformation)
-        {
-            return (test, _) => transformation(test);
-        }
-
         public IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation) =>
             TransformMaybe(AddMonad(transformation));
 
-        public Maybe<TIn, TNew> TransformMaybe<TNew>(Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
+
+        public bool HasValue()
+        {
+            if (Error.LastOrDefault() is TimeoutException && _invalid)
+            {
+                _invalid = false;
+                Run(_memory);
+            }
+
+            return !_invalid;
+        }
+        public List<Exception> Error { get; } = new List<Exception>();
+
+        private Func<TIn, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TIn, T_New> transformation)
+        {
+            return (test, _) => transformation(test);
+        }
+
+        private Func<TOut, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TOut, T_New> transformation)
+        {
+            return (test, _) => transformation(test);
+        }
+
+        
+        private Maybe<TIn, TNew> TransformMaybe<TNew>(Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
         {
             if (transformation == null) throw new ArgumentNullException(nameof(transformation));
 
@@ -73,8 +88,15 @@ namespace WaveFunction.Shared.Monad
             {
                 try
                 {
-                    Run(test);
-                    return transformation(Retrieve(), maybe);
+                    if (maybe._step == null)
+                    {
+                        Run(test);
+                        maybe._step = new MonadMemo<TOut, TNew>(Retrieve, v => transformation(v, maybe));
+                    }
+
+                    var ret = maybe._step.Retry();
+                    maybe._step = null;
+                    return ret;
                 }
                 catch (Exception e)
                 {
@@ -85,13 +107,11 @@ namespace WaveFunction.Shared.Monad
                 }
             }, Error);
         }
-
-        public bool HasValue() => !_invalid;
-
+        
         private readonly Func<TIn, Maybe<TIn, TOut>, TOut> _trans;
         private TOut? _result;
+        private TIn _memory;
         private bool _invalid;
-
-        public List<Exception> Error { get; } = new List<Exception>();
+        private IMemo<TOut>? _step;
     }
 }

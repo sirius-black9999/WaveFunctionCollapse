@@ -16,6 +16,7 @@ namespace WaveFunction.Shared
         public static int IndexOf(this Vector2 size, int x, int y) =>
             (int)(x + size.X * y);
 
+        
         public static void Foreach(this Vector2 size, Action<Vector2> action)
         {
             for (int y = 0; y < size.Y; y++)

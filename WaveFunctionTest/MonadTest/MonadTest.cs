@@ -20,15 +20,16 @@ namespace WaveFunctionTest.MonadTest
             Assert.That(result, Is.EqualTo(5 / 2f).Within(0.1f));
         }
 
+
         [Test]
         public void A_Monad_May_Execute_A_Series_Of_Commands()
         {
             //Arrange
-            IMonad<int, double> test = new Monad<int, double>(static i => i / 2f);
-            IMonad<int, string> test2 = test.Transform(static d => d.ToString(CultureInfo.InvariantCulture));
+            IMonad<int, string> test = new Monad<int, double>(static i => i / 2f)
+                .Transform(static antecedent => antecedent.ToString(CultureInfo.InvariantCulture));
             //Act
-            test2.Run(5);
-            var result = test2.Retrieve();
+            test.Run(5);
+            var result = test.Retrieve();
             //Assert
             Assert.That(result, Is.EqualTo("2.5").Within(0.1f));
         }
@@ -48,7 +49,7 @@ namespace WaveFunctionTest.MonadTest
             Assert.That(test2.HasValue(), Is.True);
         }
 
-        [Test] // An exception will leave the maybe empty
+        [Test]
         public void An_Exception_Will_Leave_The_Maybe_Empty()
         {
             //Arrange
@@ -62,6 +63,8 @@ namespace WaveFunctionTest.MonadTest
             Assert.That(test2.HasValue(), Is.False);
             Assert.Throws<MethodAccessException>(() => test2.Retrieve());
         }
+
+
 
         [Test] // An exception will leave the maybe empty
         public void When_An_Exception_Is_Thrown_A_Log_Will_Be_Kept_Of_The_Type_And_Message()

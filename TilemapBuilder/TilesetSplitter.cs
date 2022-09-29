@@ -22,6 +22,12 @@ namespace TilemapBuilder
             }
         }
 
+        /// <summary> The AttemptSplit function attempts to split the image into a grid of tiles.</summary>
+        ///
+        /// <param name="sz"> The size of the image to split.</param>
+        /// <param name="Image"> The image to split</param>
+        ///
+        /// <returns> A boolean value. this function returns true if the image was split successfully and false otherwise.</returns>
         private static void AttemptSplit(Size sz, Image image)
         {
             for (int tilesX = 4; tilesX < 32; tilesX++)
@@ -33,6 +39,14 @@ namespace TilemapBuilder
             }
         }
 
+        /// <summary> The SplitTile function splits a tile into smaller tiles.</summary>
+        ///
+        /// <param name="sz"> Size of the image</param>
+        /// <param name="Image"> The image to split</param>
+        /// <param name="int"> The int.</param>
+        /// <param name="int"> The int.</param>
+        ///
+        /// <returns> A list of tiles.</returns>
         private static void SplitTile(Size sz, Image image, int tilesY, int tilesX)
         {
             //if not an integer multiple, skip

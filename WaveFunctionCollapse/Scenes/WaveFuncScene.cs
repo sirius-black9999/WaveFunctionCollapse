@@ -1,5 +1,8 @@
+using System.Diagnostics;
 using System.Numerics;
 using Cairo;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using WaveFunction.MagicSystemSketch;
 using WaveFunction.Shared;
 using WaveFunction.Voronoi;
@@ -7,7 +10,7 @@ using WaveFunction.WaveFunc;
 
 namespace WaveFunctionCollapse.Scenes
 {
-    public class WaveFuncScene
+    public class WaveFuncScene : IScene<Context>
     {
         private static readonly IRng Rand = new BaseRng();
 
@@ -21,15 +24,35 @@ namespace WaveFunctionCollapse.Scenes
         });
 
         private readonly Voronoi _v = new Voronoi(LengthFuncs.ManhattanDistance, Points);
-        private TileMap tiles;
-        WaveMapping map;
+        private readonly TileMap _tiles;
+        private WaveMapping _map;
 
         private readonly Vector2 _gridSize = new Vector2(128, 128);
 
         public WaveFuncScene()
         {
-            tiles = new TileMap(Rand);
-            map = new WaveMapping(_v, Rand, tiles.Pick(1000));
+            _tiles = new TileMap(Rand);
+            using var image = Image.Load<Argb32>("../../../../Assets/FullMap.png");
+
+            var tilePix = new Vector3[8, 8];
+            for (int y = 0; y < 512; y++)
+            {
+                for (int x = 0; x < 512; x++)
+                {
+                    for (int px = 0; px < 8; px++)
+                    {
+                        for (int py = 0; py < 8; py++)
+                        {
+                            var pix = image[x + px, y + py];
+                            tilePix[px, py] = new Vector3(pix.R, pix.G, pix.B);
+                        }
+                    }
+
+                    TileDef.MakeFrom(new Vector2(x, y), tilePix);
+                }
+            }
+
+            _map = new WaveMapping(_v, Rand, _tiles.Pick(1000));
         }
 
         public void Render(Context cr, Vector2 size)
@@ -75,16 +98,16 @@ namespace WaveFunctionCollapse.Scenes
 
     internal class TileMap
     {
-        QuantumBag<TileDef> tiles;
+        readonly QuantumBag<TileDef> _tiles;
 
         public TileMap(IRng rand)
         {
-            tiles = new QuantumBag<TileDef>(rand);
+            _tiles = new QuantumBag<TileDef>(rand);
         }
 
         public void Add(TileDef tile)
         {
-            tiles.Add(tile);
+            _tiles.Add(tile);
         }
 
         public TileDef[] Pick(int count)
@@ -92,7 +115,7 @@ namespace WaveFunctionCollapse.Scenes
             TileDef[] ret = new TileDef[count];
             for (int i = 0; i < count; i++)
             {
-                tiles.Get();
+                _tiles.Get();
             }
 
             return ret;

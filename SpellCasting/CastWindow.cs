@@ -112,7 +112,7 @@ namespace SpellCasting
             //Unused
         }
 
-        private readonly SpellBook _book = Bookmaker.NewBook();
+        private readonly SpellBook _book = Bookmaker.NewBook(SpellBooks.Enchants);
         private Incantation _casting = new Incantation();
         private Gesture _currentRune = new Gesture();
         private readonly List<Vector3> _positions = new List<Vector3>();

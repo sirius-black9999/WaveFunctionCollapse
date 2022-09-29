@@ -2,6 +2,8 @@ using System.Numerics;
 using System.Text;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using WaveFunction.ARPG.Battle;
+using WaveFunction.ARPG.Tiles;
 using WaveFunction.MagicSystemSketch;
 using WaveFunction.Shared;
 
@@ -9,7 +11,6 @@ namespace TilemapBuilder
 {
     public static class TileMapTester
     {
-        private static readonly Vector2 TileSize = new Vector2(8, 8);
         public static readonly string Filename = "../../../../Plot.csv";
 
         private static List<Signature> _signaturesN = new List<Signature>();
@@ -28,7 +29,26 @@ namespace TilemapBuilder
         {
             using var image = Image.Load<Argb32>("../../../../Assets/FullMap.png");
 
-            TestImage(image, TestTile);
+            Vector4[,] pix = new Vector4[image.Width, image.Height];
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    var old = image[x, y];
+                    var r = old.R / 255f;
+                    var g = old.G / 255f;
+                    var b = old.B / 255f;
+                    var a = old.A / 255f;
+                    pix[x, y] = new Vector4(r, g, b, a);
+                }
+            }
+
+            var set = Tileset.AsTileset(pix);
+            _signaturesN = set.Tiles.Select(static s => s.Signatures[NavDir.North]).ToList();
+            _signaturesE = set.Tiles.Select(static s => s.Signatures[NavDir.East]).ToList();
+            _signaturesS = set.Tiles.Select(static s => s.Signatures[NavDir.South]).ToList();
+            _signaturesW = set.Tiles.Select(static s => s.Signatures[NavDir.West]).ToList();
+            _signaturesC = set.Tiles.Select(static s => s.Signatures[NavDir.Central]).ToList();
             Console.WriteLine($"Found {_signaturesC.Count} tiles");
             foreach (var element in Enum.GetValues<Element>())
             {
@@ -127,61 +147,6 @@ namespace TilemapBuilder
                 if (distinct[j].Length > index)
                     sb.Append(signatures.Count(x => Math.Abs(x[(Element)j] - distinct[j][index]) < 0.001f));
             }
-        }
-
-        private static void TestImage(Image<Argb32> image, Action<Argb32[]> testFunc)
-        {
-            var pixels = new Argb32[(int)(TileSize.X * TileSize.Y)];
-            for (int y = 0; y < 4096; y += 8)
-            {
-                for (int x = 0; x < 4096; x += 8)
-                {
-                    CopyTile(image, pixels, x, y);
-
-                    if (pixels.Max(Alpha) == 0) continue;
-
-                    testFunc(pixels);
-                }
-            }
-        }
-
-        public static byte Alpha(Argb32 x) => x.A;
-
-        private static void CopyTile(Image<Argb32> image, Argb32[] pixels, int x, int y)
-        {
-            for (int py = 0; py < 8; py++)
-            {
-                for (int px = 0; px < 8; px++)
-                {
-                    pixels[TileSize.IndexOf(px, py)] = image[x + px, y + py];
-                }
-            }
-        }
-
-        private static void TestTile(Argb32[] pixels)
-        {
-            GetSignatures(pixels, 8, static i => TileSize.IndexOf(i, 0), ref _signaturesN);
-            GetSignatures(pixels, 8, static i => TileSize.IndexOf(i, 7), ref _signaturesS);
-            GetSignatures(pixels, 8, static i => TileSize.IndexOf(0, i), ref _signaturesW);
-            GetSignatures(pixels, 8, static i => TileSize.IndexOf(7, i), ref _signaturesE);
-            GetSignatures(pixels, 8 * 8, Nop, ref _signaturesC);
-        }
-
-        private static void GetSignatures(Argb32[] pixels, int numPixels, Func<int, int> toIndex,
-            ref List<Signature> targetList)
-        {
-            var sig = new Signature(0, 0, 0, 0, 0, 0, 0, 0);
-            var elements = Enum.GetValues<Element>();
-            var col = new Vector3();
-            for (int i = 0; i < numPixels; i++)
-            {
-                col.X = pixels[toIndex(i)].R / 255f;
-                col.Y = pixels[toIndex(i)].G / 255f;
-                col.Z = pixels[toIndex(i)].B / 255f;
-                sig = sig.MixedWith(col, elements[i % 8]);
-            }
-
-            targetList.Add(sig);
         }
     }
 }

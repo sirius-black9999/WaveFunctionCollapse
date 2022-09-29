@@ -8,8 +8,7 @@ namespace WaveFunction.Shared
         {
             _scenes = scenes;
         }
-
-
+        
         public void Render(T cr, Vector2 size)
         {
             All((s) => s.Render(cr, size));

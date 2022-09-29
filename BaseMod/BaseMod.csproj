@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -9,12 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WaveFunction\WaveFunction.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="cairo" Version="1.12.18" />
-      <PackageReference Include="GtkSharp" Version="3.24.24.38" />
-      <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
     </ItemGroup>
 
 </Project>

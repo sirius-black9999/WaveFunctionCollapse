@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellCasting", "SpellCastin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TilemapBuilder", "TilemapBuilder\TilemapBuilder.csproj", "{0DBFF014-12E9-48BE-9FE9-8F67B81696CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseMod", "BaseMod\BaseMod.csproj", "{465354A8-3182-40F7-B784-431ABAC26CC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomEncounters", "RandomEncounters\RandomEncounters.csproj", "{56EFA8AC-C755-4777-AF64-A4EDCC61D1BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{0DBFF014-12E9-48BE-9FE9-8F67B81696CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DBFF014-12E9-48BE-9FE9-8F67B81696CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DBFF014-12E9-48BE-9FE9-8F67B81696CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{465354A8-3182-40F7-B784-431ABAC26CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465354A8-3182-40F7-B784-431ABAC26CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{465354A8-3182-40F7-B784-431ABAC26CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{465354A8-3182-40F7-B784-431ABAC26CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56EFA8AC-C755-4777-AF64-A4EDCC61D1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56EFA8AC-C755-4777-AF64-A4EDCC61D1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56EFA8AC-C755-4777-AF64-A4EDCC61D1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56EFA8AC-C755-4777-AF64-A4EDCC61D1BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

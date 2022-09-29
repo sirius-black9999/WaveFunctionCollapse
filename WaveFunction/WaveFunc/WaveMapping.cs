@@ -12,6 +12,12 @@ namespace WaveFunction.WaveFunc
         private Signature SouthEdge;
         private Signature EastEdge;
         private Signature WestEdge;
+
+        public static void MakeFrom(Vector2 pos, Vector3[,] tilePix)
+        {
+            TileDef ret = new TileDef();
+            ret.position = pos;
+        }
     }
 
     public class WaveMapElement

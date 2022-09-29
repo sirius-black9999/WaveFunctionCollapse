@@ -17,7 +17,7 @@ namespace WaveFunctionCollapse
             SetPosition(WindowPosition.Center);
             DeleteEvent += static (_, _) => Application.Quit();
             KeyPressEvent += OnKeyPressEvent;
-
+            _scene = new WaveFuncScene();
 
             var dArea = new DrawingArea();
             dArea.Events |= EventMask.ScrollMask;
@@ -83,7 +83,7 @@ namespace WaveFunctionCollapse
             return new Vector2(mx, my);
         }
 
-        private IScene<Cairo.Context> _scene = new VoronoiScene();
+        private IScene<Cairo.Context> _scene;
         private int _frame;
     }
 }
