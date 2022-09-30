@@ -2,7 +2,8 @@ namespace WaveFunction.Shared.Monad
 {
     public class Maybe<TIn, TOut> : IMonad<TIn, TOut>
     {
-        public Maybe(Func<TIn, Maybe<TIn, TOut>, TOut> transformation) : this(transformation, new List<Exception>())
+        public Maybe(Func<TIn, Maybe<TIn, TOut>, TOut> transformation) :
+            this(transformation, new List<Exception>())
         {
         }
 
@@ -15,9 +16,13 @@ namespace WaveFunction.Shared.Monad
 
         public Maybe(Func<TIn, TOut> transformation)
         {
-            _trans = AddMonad(transformation);
+            _trans = MaybeBindings<TIn, TOut>.AddMonad(transformation);
             _result = default;
         }
+
+        public IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation) =>
+            MaybeBindings<TIn, TOut>.TransformMaybe(this,
+                MaybeBindings<TIn, TOut>.AddMonad(transformation));
 
         public void Run(TIn i)
         {
@@ -28,28 +33,25 @@ namespace WaveFunction.Shared.Monad
             }
             catch (Exception e)
             {
-                HandleIssue(e, this);
+                HandleIssue(this, e);
             }
         }
 
-        public TOut Retrieve()
+        public static TNew EvaluateStep<TNew>(Maybe<TIn, TOut> self,
+            Func<TOut, Maybe<TIn, TNew>, TNew> transformation,
+            Maybe<TIn, TNew> root, TIn input)
         {
-            if (_invalid)
-                throw new MethodAccessException("attempting to retrieve from monad when no data is available");
+            if (root._step == null)
+            {
+                self.Run(input);
+                root._step = new MonadMemo<TOut, TNew>(self.Retrieve,
+                    MaybeBindings<TIn, TOut>.BindMaybe(transformation, root));
+            }
 
-            try
-            {
-                return _result;
-            }
-            catch (Exception e)
-            {
-                return HandleIssue(e, this);
-            }
+            var ret = root._step.Retry();
+            root._step = null;
+            return ret;
         }
-
-        public IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation) =>
-            TransformMaybe(this, AddMonad(transformation));
-
 
         public bool HasValue()
         {
@@ -62,75 +64,35 @@ namespace WaveFunction.Shared.Monad
             return !_invalid;
         }
 
-        public List<Exception> Error { get; } = new List<Exception>();
-
-        private static Func<TIn, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TIn, T_New> transformation)
+        public TOut Retrieve()
         {
-            return (test, _) => transformation(test);
-        }
+            if (_invalid)
+                throw new MethodAccessException(
+                    "attempting to retrieve from monad when no data is available");
 
-        private static Func<TOut, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TOut, T_New> transformation)
-        {
-            return (test, _) => transformation(test);
-        }
-
-        private static Maybe<TIn, TNew> TransformMaybe<TNew>(Maybe<TIn, TOut> self,
-            Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
-        {
-            if (transformation == null) throw new ArgumentNullException(nameof(transformation));
-
-            return new Maybe<TIn, TNew>(BindTransform(self, transformation), self.Error);
-        }
-
-        private static Func<TIn, Maybe<TIn, TNew>, TNew> BindTransform<TNew>(Maybe<TIn, TOut> self,
-            Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
-        {
-            return (test, maybe) =>
+            try
             {
-                try
-                {
-                    return EvaluateStep(self, transformation, maybe, test);
-                }
-                catch (Exception e)
-                {
-                    return HandleIssue(e, maybe);
-                }
-            };
-        }
-
-
-        private static TNew EvaluateStep<TNew>(Maybe<TIn, TOut> self, Func<TOut, Maybe<TIn, TNew>, TNew> transformation,
-            Maybe<TIn, TNew> maybe,
-            TIn test)
-        {
-            if (maybe._step == null)
-            {
-                self.Run(test);
-                maybe._step = new MonadMemo<TOut, TNew>(self.Retrieve, BindMaybe(transformation, maybe));
+                return _result;
             }
-
-            var ret = maybe._step.Retry();
-            maybe._step = null;
-            return ret;
+            catch (Exception e)
+            {
+                return HandleIssue(this, e);
+            }
         }
 
-        private static TNew HandleIssue<TNew>(Exception e, Maybe<TIn, TNew> maybe)
+        public static TNew HandleIssue<TNew>(Maybe<TIn, TNew> root, Exception e)
         {
             Console.WriteLine(e);
-            maybe._invalid = true;
-            maybe.Error.Add(e);
+            root._invalid = true;
+            root.Error.Add(e);
             return default;
         }
 
-        private static Func<TOut, TNew> BindMaybe<TNew>(Func<TOut, Maybe<TIn, TNew>, TNew> transformation,
-            Maybe<TIn, TNew> maybe)
-        {
-            return v => transformation(v, maybe);
-        }
 
+        public List<Exception> Error { get; } = new List<Exception>();
         private readonly Func<TIn, Maybe<TIn, TOut>, TOut> _trans;
         private TOut? _result;
-        private TIn _memory;
+        private TIn? _memory;
         private bool _invalid;
         private IMemo<TOut>? _step;
     }
