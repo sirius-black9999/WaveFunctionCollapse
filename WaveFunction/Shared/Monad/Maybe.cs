@@ -28,9 +28,7 @@ namespace WaveFunction.Shared.Monad
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                _invalid = true;
-                Error.Add(e);
+                HandleIssue(e, this);
             }
         }
 
@@ -45,16 +43,12 @@ namespace WaveFunction.Shared.Monad
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                _invalid = true;
-                Error.Add(e);
-                throw;
+                return HandleIssue(e, this);
             }
         }
 
-
         public IMonad<TIn, TNew> Transform<TNew>(Func<TOut, TNew> transformation) =>
-            TransformMaybe(AddMonad(transformation));
+            TransformMaybe(this, AddMonad(transformation));
 
 
         public bool HasValue()
@@ -67,47 +61,73 @@ namespace WaveFunction.Shared.Monad
 
             return !_invalid;
         }
+
         public List<Exception> Error { get; } = new List<Exception>();
 
-        private Func<TIn, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TIn, T_New> transformation)
+        private static Func<TIn, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TIn, T_New> transformation)
         {
             return (test, _) => transformation(test);
         }
 
-        private Func<TOut, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TOut, T_New> transformation)
+        private static Func<TOut, Maybe<TIn, T_New>, T_New> AddMonad<T_New>(Func<TOut, T_New> transformation)
         {
             return (test, _) => transformation(test);
         }
 
-        
-        private Maybe<TIn, TNew> TransformMaybe<TNew>(Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
+        private static Maybe<TIn, TNew> TransformMaybe<TNew>(Maybe<TIn, TOut> self,
+            Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
         {
             if (transformation == null) throw new ArgumentNullException(nameof(transformation));
 
-            return new Maybe<TIn, TNew>((test, maybe) =>
+            return new Maybe<TIn, TNew>(BindTransform(self, transformation), self.Error);
+        }
+
+        private static Func<TIn, Maybe<TIn, TNew>, TNew> BindTransform<TNew>(Maybe<TIn, TOut> self,
+            Func<TOut, Maybe<TIn, TNew>, TNew> transformation)
+        {
+            return (test, maybe) =>
             {
                 try
                 {
-                    if (maybe._step == null)
-                    {
-                        Run(test);
-                        maybe._step = new MonadMemo<TOut, TNew>(Retrieve, v => transformation(v, maybe));
-                    }
-
-                    var ret = maybe._step.Retry();
-                    maybe._step = null;
-                    return ret;
+                    return EvaluateStep(self, transformation, maybe, test);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    maybe._invalid = true;
-                    maybe.Error.Add(e);
-                    return default;
+                    return HandleIssue(e, maybe);
                 }
-            }, Error);
+            };
         }
-        
+
+
+        private static TNew EvaluateStep<TNew>(Maybe<TIn, TOut> self, Func<TOut, Maybe<TIn, TNew>, TNew> transformation,
+            Maybe<TIn, TNew> maybe,
+            TIn test)
+        {
+            if (maybe._step == null)
+            {
+                self.Run(test);
+                maybe._step = new MonadMemo<TOut, TNew>(self.Retrieve, BindMaybe(transformation, maybe));
+            }
+
+            var ret = maybe._step.Retry();
+            maybe._step = null;
+            return ret;
+        }
+
+        private static TNew HandleIssue<TNew>(Exception e, Maybe<TIn, TNew> maybe)
+        {
+            Console.WriteLine(e);
+            maybe._invalid = true;
+            maybe.Error.Add(e);
+            return default;
+        }
+
+        private static Func<TOut, TNew> BindMaybe<TNew>(Func<TOut, Maybe<TIn, TNew>, TNew> transformation,
+            Maybe<TIn, TNew> maybe)
+        {
+            return v => transformation(v, maybe);
+        }
+
         private readonly Func<TIn, Maybe<TIn, TOut>, TOut> _trans;
         private TOut? _result;
         private TIn _memory;
