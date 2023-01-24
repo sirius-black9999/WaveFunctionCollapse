@@ -24,6 +24,14 @@ namespace WaveFunctionTest.PropertyTesting.Generators
                         rng.NextFloat(0, 1))
                     .Resolve());
 
+        public static Generator<Signature> Signature =>
+            new Generator<Signature>(static rng =>
+                new Signature(rng.Next(-1, 1), rng.Next(-1, 1), rng.Next(-1, 1),
+                    rng.Next(-1, 1)
+                    , rng.Next(-1, 1), rng.Next(-1, 1), rng.Next(-1, 1),
+                    rng.Next(-1, 1)));
+
+
         public static Generator<Incantation> Incantation =>
             new Generator<Incantation>(static rng =>
                 new Incantation().Inscribe(

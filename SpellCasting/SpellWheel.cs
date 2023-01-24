@@ -12,13 +12,13 @@ namespace SpellCasting
         private static readonly Dictionary<Element, Vector2> GlyphPositions = new Dictionary<Element, Vector2>()
         {
             { Element.Solidum, new Vector2(0.5f, 0.2f) },
-            { Element.Febris, new Vector2(0.5f, 0.8f) },
-            { Element.Ordinem, new Vector2(0.2f, 0.5f) },
+            { Element.Calor, new Vector2(0.5f, 0.8f) },
+            { Element.Entropia, new Vector2(0.2f, 0.5f) },
             { Element.Lumines, new Vector2(0.8f, 0.5f) },
-            { Element.Varias, new Vector2(0.3f, 0.3f) },
-            { Element.Inertiae, new Vector2(0.7f, 0.7f) },
-            { Element.Subsidium, new Vector2(0.3f, 0.7f) },
-            { Element.Spatium, new Vector2(0.7f, 0.3f) },
+            { Element.Natura, new Vector2(0.3f, 0.3f) },
+            { Element.Densitas, new Vector2(0.7f, 0.7f) },
+            { Element.Harmonius, new Vector2(0.3f, 0.7f) },
+            { Element.Motus, new Vector2(0.7f, 0.3f) },
         };
 
         private static Vector3 GlyphPos(Element e, double depth, Vector2 size) =>
@@ -36,13 +36,13 @@ namespace SpellCasting
             new Dictionary<Element, Glyph>()
             {
                 { Element.Solidum, SolidumGlyph },
-                { Element.Febris, FebrisGlyph },
-                { Element.Ordinem, OrdinemGlyph },
+                { Element.Calor, FebrisGlyph },
+                { Element.Entropia, OrdinemGlyph },
                 { Element.Lumines, LuminesGlyph },
-                { Element.Varias, VariasGlyph },
-                { Element.Inertiae, InertiaeGlyph },
-                { Element.Subsidium, SubsidiumGlyph },
-                { Element.Spatium, SpatiumGlyph },
+                { Element.Natura, VariasGlyph },
+                { Element.Densitas, InertiaeGlyph },
+                { Element.Harmonius, SubsidiumGlyph },
+                { Element.Motus, SpatiumGlyph },
             }[e];
 
         private static readonly int GlyphSize = 20;

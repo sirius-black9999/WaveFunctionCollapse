@@ -11,17 +11,17 @@ namespace WaveFunctionTest.MagicSystem
             //Arrange
             var spell = new Spell("Fireball",
                 Aspect.Ignis, Element.Solidum.Negative(),
-                Aspect.Disis, Element.Varias.Positive());
+                Aspect.Tardus, Element.Natura.Positive());
             var cast = new Incantation();
             cast.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis)
-                    .Record(Aspect.Aeolis)
+                    .Record(Aspect.Debilis)
                     .Resolve());
             cast.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Disis)
-                    .Record(Aspect.Spatius)
+                    .Record(Aspect.Tardus)
+                    .Record(Aspect.Sylva)
                     .Resolve());
             //Act
             var result = spell.CastChance(cast);
@@ -34,18 +34,18 @@ namespace WaveFunctionTest.MagicSystem
         {
             //Arrange
             var spell = new Spell("Fireball",
-                Aspect.Ignis, Aspect.Aeolis,
-                Aspect.Disis, Aspect.Gravitas);
+                Aspect.Ignis, Aspect.Debilis,
+                Aspect.Tardus, Aspect.Gravis);
             var cast = new Incantation();
             cast.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis)
-                    .Record(Aspect.Aeolis)
+                    .Record(Aspect.Debilis)
                     .Resolve());
             cast.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Disis)
-                    .Record(Aspect.Tempus)
+                    .Record(Aspect.Tardus)
+                    .Record(Aspect.Aridus)
                     .Resolve());
             //Act
             var result = spell.CastChance(cast);
@@ -63,12 +63,12 @@ namespace WaveFunctionTest.MagicSystem
             template.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis, 2)
-                    .Record(Aspect.Aeolis, 3)
+                    .Record(Aspect.Debilis, 3)
                     .Resolve());
             template.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Disis)
-                    .Record(Aspect.Tempus, 0.5)
+                    .Record(Aspect.Tardus)
+                    .Record(Aspect.Aridus, 0.5)
                     .Resolve());
             var spell = new Spell("Fireball", template);
 
@@ -76,8 +76,8 @@ namespace WaveFunctionTest.MagicSystem
             var phrase = new Incantation();
             phrase.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Tempus, 0.5)
-                    .Record(Aspect.Aeolis, 3)
+                    .Record(Aspect.Aridus, 0.5)
+                    .Record(Aspect.Debilis, 3)
                     .Resolve());
             phrase.Inscribe(
                 new Gesture()
@@ -97,12 +97,12 @@ namespace WaveFunctionTest.MagicSystem
             template.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis, 2)
-                    .Record(Aspect.Aeolis, 3)
+                    .Record(Aspect.Debilis, 3)
                     .Resolve());
             template.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Disis)
-                    .Record(Aspect.Tempus, 0.5)
+                    .Record(Aspect.Tardus)
+                    .Record(Aspect.Aridus, 0.5)
                     .Resolve());
             var spell = new Spell("Fireball", template);
 
@@ -111,12 +111,12 @@ namespace WaveFunctionTest.MagicSystem
             phrase.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis, 2)
-                    .Record(Aspect.Aeolis, 3)
+                    .Record(Aspect.Debilis, 3)
                     .Resolve());
             phrase.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Iuxta)
-                    .Record(Aspect.Tempus, 0.5)
+                    .Record(Aspect.Velox)
+                    .Record(Aspect.Aridus, 0.5)
                     .Resolve());
             //Act
             var result = spell.CastChance(phrase);
@@ -132,13 +132,13 @@ namespace WaveFunctionTest.MagicSystem
             template.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis, 2)
-                    .Record(Aspect.Aeolis, 3)
-                    .Record(Aspect.Luminus, 3)
+                    .Record(Aspect.Debilis, 3)
+                    .Record(Aspect.Lux, 3)
                     .Resolve());
             template.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Disis)
-                    .Record(Aspect.Tempus, 0.5)
+                    .Record(Aspect.Tardus)
+                    .Record(Aspect.Aridus, 0.5)
                     .Resolve());
             var spell = new Spell("Fireball", template);
 
@@ -146,14 +146,14 @@ namespace WaveFunctionTest.MagicSystem
             var phrase = new Incantation();
             phrase.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Hydris, 999)
-                    .Record(Aspect.Tellus, 999)
-                    .Record(Aspect.Noctis, 999)
+                    .Record(Aspect.Frigus, 999)
+                    .Record(Aspect.Fortis, 999)
+                    .Record(Aspect.Umbra, 999)
                     .Resolve());
             phrase.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Iuxta, 999)
-                    .Record(Aspect.Spatius, 999)
+                    .Record(Aspect.Velox, 999)
+                    .Record(Aspect.Sylva, 999)
                     .Resolve());
             //Act
             var result = spell.CastChance(phrase);

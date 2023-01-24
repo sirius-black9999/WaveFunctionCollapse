@@ -13,55 +13,46 @@ namespace WaveFunctionEditor
     public class MainForm : Window
     {
         private readonly Vector2 _drawingAreaSize = new Vector2(512, 512);
-
-        public MainForm() : base("Wave function collapse")
+public MainForm() : base("Wave function collapse")
         {
             Fullscreen();
             SetPosition(WindowPosition.Center);
             DeleteEvent += static (_, _) => Application.Quit();
             KeyPressEvent += OnKeyPressEvent;
-
             _scene = new OpeningWindow();
-
             var grid = new Grid();
             Add(grid);
-
             var dArea = new DrawingArea();
             dArea.Events |= EventMask.ScrollMask;
             dArea.Events |= EventMask.ButtonPressMask;
             dArea.Events |= EventMask.ButtonReleaseMask;
             dArea.Events |= EventMask.Button1MotionMask;
             dArea.Drawn += OnDraw;
-            dArea.ScrollEvent += (_, args) => _scene.MouseScroll(args.Event.Direction == ScrollDirection.Up);
-            dArea.ButtonPressEvent += (_, _) => _scene.MouseClick(MousePos());
-            dArea.ButtonReleaseEvent += (_, _) => _scene.MouseRelease(MousePos());
-            dArea.DragMotion += (_, _) => _scene.MouseDrag(MousePos());
+            dArea.ScrollEvent += (_, args) => _scene.MouseScroll(args.Event.Direction == ScrollDirection.Up); // Add mouse scroll event
+            dArea.ButtonPressEvent += (_, _) => _scene.MouseClick(MousePos()); // Add mouse click event
+            dArea.ButtonReleaseEvent += (_, _) => _scene.MouseRelease(MousePos()); // Add mouse release event
+            dArea.DragMotion += (_, _) => _scene.MouseDrag(MousePos()); // Add mouse drag event
             dArea.SetSizeRequest((int)_drawingAreaSize.X, (int)_drawingAreaSize.Y);
             grid.Add(dArea);
-
             var loadFile = new Button("Load file");
             loadFile.Clicked += OnLoadFileOnClicked;
             var saveFile = new Button("Save file");
             saveFile.Clicked += OnSaveFileOnClicked;
             grid.Add(loadFile);
             grid.Add(saveFile);
-
             var scenePicker = new ComboBox(new[] { "SourceImage", "Render", "Passability" });
             scenePicker.Changed += ScenePickerOnChanged;
             grid.Add(scenePicker);
-
             ShowAll();
         }
-
         private void ScenePickerOnChanged(object? sender, EventArgs e)
         {
             if (sender == null) throw new ArgumentNullException(nameof(sender));
             if (e == null) throw new ArgumentNullException(nameof(e));
 
-            var combo = sender as ComboBox;
-            if (combo == null) return;
+            if (sender is not ComboBox combo) return;
 
-            var scenes = new List<IScene<Context>>()
+            var scenes = new List<IScene<Context>>
             {
                 new OpeningWindow(),
                 new OpeningWindow(),

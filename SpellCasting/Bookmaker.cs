@@ -12,56 +12,56 @@ namespace SpellCasting
                 "Fireball",
                 new[]
                 {
-                    Aspect.Aeolis, Aspect.Ignis, Aspect.Empyrus, Aspect.Luminus, Aspect.Spatius, Aspect.Levitas,
-                    Aspect.Malus, Aspect.Disis
+                    Aspect.Debilis, Aspect.Ignis, Aspect.Discordia, Aspect.Lux, Aspect.Sylva, Aspect.Levis,
+                    Aspect.Malum, Aspect.Tardus
                 }
             },
             {
                 "Ice shard",
                 new[]
                 {
-                    Aspect.Tellus, Aspect.Hydris, Aspect.Vitrio, Aspect.Luminus, Aspect.Spatius, Aspect.Gravitas,
-                    Aspect.Malus, Aspect.Disis
+                    Aspect.Fortis, Aspect.Frigus, Aspect.Concordia, Aspect.Lux, Aspect.Sylva, Aspect.Gravis,
+                    Aspect.Malum, Aspect.Tardus
                 }
             },
             {
                 "Lightning",
                 new[]
                 {
-                    Aspect.Tellus, Aspect.Ignis, Aspect.Empyrus, Aspect.Luminus, Aspect.Tempus, Aspect.Levitas,
-                    Aspect.Malus, Aspect.Iuxta
+                    Aspect.Fortis, Aspect.Ignis, Aspect.Discordia, Aspect.Lux, Aspect.Aridus, Aspect.Levis,
+                    Aspect.Malum, Aspect.Velox
                 }
             },
             {
                 "Slow",
                 new[]
                 {
-                    Aspect.Tellus, Aspect.Hydris, Aspect.Vitrio, Aspect.Noctis, Aspect.Tempus, Aspect.Gravitas,
-                    Aspect.Malus, Aspect.Iuxta
+                    Aspect.Fortis, Aspect.Frigus, Aspect.Concordia, Aspect.Umbra, Aspect.Aridus, Aspect.Gravis,
+                    Aspect.Malum, Aspect.Velox
                 }
             },
             {
                 "Acid",
                 new[]
                 {
-                    Aspect.Aeolis, Aspect.Ignis, Aspect.Empyrus, Aspect.Noctis, Aspect.Spatius, Aspect.Gravitas,
-                    Aspect.Malus, Aspect.Iuxta
+                    Aspect.Debilis, Aspect.Ignis, Aspect.Discordia, Aspect.Umbra, Aspect.Sylva, Aspect.Gravis,
+                    Aspect.Malum, Aspect.Velox
                 }
             },
             {
                 "Healing touch",
                 new[]
                 {
-                    Aspect.Aeolis, Aspect.Hydris, Aspect.Vitrio, Aspect.Luminus, Aspect.Tempus, Aspect.Levitas,
-                    Aspect.Auxillus, Aspect.Iuxta
+                    Aspect.Debilis, Aspect.Frigus, Aspect.Concordia, Aspect.Lux, Aspect.Aridus, Aspect.Levis,
+                    Aspect.Bonum, Aspect.Velox
                 }
             },
             {
                 "Healing word",
                 new[]
                 {
-                    Aspect.Aeolis, Aspect.Hydris, Aspect.Vitrio, Aspect.Luminus, Aspect.Tempus, Aspect.Levitas,
-                    Aspect.Auxillus, Aspect.Disis
+                    Aspect.Debilis, Aspect.Frigus, Aspect.Concordia, Aspect.Lux, Aspect.Aridus, Aspect.Levis,
+                    Aspect.Bonum, Aspect.Tardus
                 }
             }
         }.ToImmutableDictionary();

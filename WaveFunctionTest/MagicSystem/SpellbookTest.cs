@@ -12,11 +12,11 @@ namespace WaveFunctionTest.MagicSystem
             //Arrange
             var book = new SpellBook();
             book.AddSpell(new Spell("Fireball",
-                    Aspect.Ignis, Aspect.Aeolis,
-                    Aspect.Disis, Aspect.Gravitas))
+                    Aspect.Ignis, Aspect.Debilis,
+                    Aspect.Tardus, Aspect.Gravis))
                 .AddSpell(new Spell("Ice shard",
-                    Aspect.Tellus, Aspect.Hydris,
-                    Aspect.Vitrio, Aspect.Tempus, Aspect.Disis));
+                    Aspect.Fortis, Aspect.Frigus,
+                    Aspect.Concordia, Aspect.Aridus, Aspect.Tardus));
             //Act
             var held = book.SpellCount;
             //Assert
@@ -40,25 +40,25 @@ namespace WaveFunctionTest.MagicSystem
             PRng rng = new PRng(val);
             var book = new SpellBook(rng);
             book.AddSpell(new Spell("Fireball",
-                    Aspect.Ignis, Aspect.Aeolis,
-                    Aspect.Disis, Aspect.Gravitas))
+                    Aspect.Ignis, Aspect.Debilis,
+                    Aspect.Tardus, Aspect.Gravis))
                 .AddSpell(new Spell("Ice shard",
-                    Aspect.Tellus, Aspect.Hydris,
-                    Aspect.Vitrio, Aspect.Tempus, Aspect.Disis))
+                    Aspect.Fortis, Aspect.Frigus,
+                    Aspect.Concordia, Aspect.Aridus, Aspect.Tardus))
                 .AddSpell(new Spell("Lightning bolt",
-                    Aspect.Ignis, Aspect.Aeolis,
-                    Aspect.Empyrus, Aspect.Tempus, Aspect.Luminus));
+                    Aspect.Ignis, Aspect.Debilis,
+                    Aspect.Discordia, Aspect.Aridus, Aspect.Lux));
 
             var phrase = new Incantation();
             phrase.Inscribe(
                 new Gesture()
                     .Record(Aspect.Ignis)
-                    .Record(Aspect.Aeolis)
+                    .Record(Aspect.Debilis)
                     .Resolve());
             phrase.Inscribe(
                 new Gesture()
-                    .Record(Aspect.Iuxta)
-                    .Record(Aspect.Tempus)
+                    .Record(Aspect.Velox)
+                    .Record(Aspect.Aridus)
                     .Resolve());
             //Act
             var held = book.Cast(phrase);

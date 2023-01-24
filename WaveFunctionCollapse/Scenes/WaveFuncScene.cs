@@ -64,7 +64,7 @@ namespace WaveFunctionCollapse.Scenes
 
         private void RenderTile(Vector2 pos, Context cr)
         {
-            var col = _v[pos].Color;
+            var col = _v[pos].SignatureColor;
             cr.SetSourceRGB(col.X, col.Y, col.Z);
             cr.Rectangle(pos.X * 2, pos.Y * 2, 2, 2);
             cr.Fill();

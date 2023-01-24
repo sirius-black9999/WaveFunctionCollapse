@@ -2,9 +2,9 @@ namespace WaveFunction.Shared.Monad
 {
     public class Future<TIn, TOut>
     {
-        public Future(Maybe<TIn, TOut> operation)
+        public Future(IMonad<TIn, TOut> operation)
         {
-            _operation = operation;
+            _operation = (Maybe<TIn, TOut>)operation;
         }
 
 

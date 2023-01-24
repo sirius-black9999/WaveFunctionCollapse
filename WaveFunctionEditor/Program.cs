@@ -11,7 +11,6 @@ internal static class Program
     {
         Application.Init();
         using var form = new MainForm(); //NOSONAR
-
         Application.Run();
     }
 }

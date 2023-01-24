@@ -44,13 +44,13 @@ namespace WaveFunction.MagicSystemSketch
             new Spell(Name, cast)
             {
                 Hardness = cast.Element(Element.Solidum) - _aspects[Element.Solidum],
-                Heat = cast.Element(Element.Febris) - _aspects[Element.Febris],
-                Entropy = cast.Element(Element.Ordinem) - _aspects[Element.Ordinem],
+                Heat = cast.Element(Element.Calor) - _aspects[Element.Calor],
+                Entropy = cast.Element(Element.Entropia) - _aspects[Element.Entropia],
                 Luminance = cast.Element(Element.Lumines) - _aspects[Element.Lumines],
-                Manifold = cast.Element(Element.Varias) - _aspects[Element.Varias],
-                Density = cast.Element(Element.Inertiae) - _aspects[Element.Inertiae],
-                Risk = cast.Element(Element.Subsidium) - _aspects[Element.Subsidium],
-                Range = cast.Element(Element.Spatium) - _aspects[Element.Spatium],
+                Manifold = cast.Element(Element.Natura) - _aspects[Element.Natura],
+                Density = cast.Element(Element.Densitas) - _aspects[Element.Densitas],
+                Risk = cast.Element(Element.Harmonius) - _aspects[Element.Harmonius],
+                Range = cast.Element(Element.Motus) - _aspects[Element.Motus],
                 Stability = CastChance(cast)
             };
 

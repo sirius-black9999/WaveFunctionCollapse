@@ -24,9 +24,9 @@ namespace WaveFunctionTest.MagicSystem
         [TestCase(1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0)]
         [TestCase(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1)]
         //rgrrrrgr
-        [TestCase(5, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1)]
+        [TestCase(6, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1)]
         //bbbbgbrg
-        [TestCase(1, 2, 6, -1, -1, -1, -1, -1, -1, -1, -1)]
+        [TestCase(1, 2, 5, -1, -1, -1, -1, -1, -1, -1, -1)]
 
         //maxed red
         [TestCase(7, 1, 0, 1, 1, 1, 1, 1, 1, -1, 1)]
@@ -39,11 +39,11 @@ namespace WaveFunctionTest.MagicSystem
             //Arrange
             var sig = new Signature(elements);
             //Act
-            var col = sig.Color;
+            var col = sig.SignatureColor;
             //Assert
-            Assert.That(col.X, Is.EqualTo(Math.Tanh(r / 7f)).Within(0.1f), "X");
-            Assert.That(col.Y, Is.EqualTo(Math.Tanh(g / 4f)).Within(0.1f), "Y");
-            Assert.That(col.Z, Is.EqualTo(Math.Tanh(b / 5f)).Within(0.1f), "Z");
+            Assert.That(col.X, Is.EqualTo(r / 7f).Within(0.1f), "X");
+            Assert.That(col.Y, Is.EqualTo(g / 4f).Within(0.1f), "Y");
+            Assert.That(col.Z, Is.EqualTo(b / 5f).Within(0.1f), "Z");
         }
     }
 }
